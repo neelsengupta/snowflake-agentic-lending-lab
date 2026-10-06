@@ -64,12 +64,6 @@ You will build both with CoCo in Snowsight.
 
 The lab runs in [Snowsight](https://docs.snowflake.com/en/user-guide/ui-snowsight), on your own Snowflake trial account. Setup takes three steps and about two minutes.
 
-!!! action "Get a trial account"
-
-    Sign up at [signup.snowflake.com](https://signup.snowflake.com/). Choose **Enterprise** edition and **AWS**. Any region works. Activate the account from the email and sign in to Snowsight.
-
-    If you already have a trial account, use it — nothing in it needs to change.
-
 !!! action "Step 1: Let Snowflake read the lab repository"
 
     1. Select **Projects** » **Workspaces** in the left navigation.
