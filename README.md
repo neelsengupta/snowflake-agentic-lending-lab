@@ -5,10 +5,11 @@ https://neelsengupta.github.io/snowflake-agentic-lending-lab/.
 
 The lab files themselves are on the `main` branch.
 
-Every push to this branch rebuilds and republishes the guide. To preview it
-locally:
+To preview it locally, or publish it to the `gh-pages` branch that GitHub
+Pages serves:
 
 ```
 pip install -r requirements.txt
-mkdocs serve
+mkdocs serve        # preview
+mkdocs gh-deploy    # publish
 ```
