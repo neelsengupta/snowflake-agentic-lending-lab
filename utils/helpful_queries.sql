@@ -89,7 +89,7 @@ SHOW MCP SERVERS IN SCHEMA LENDING.LOANS;
 
 -- Recreate CREDIT_ANALYST_MCP if it was dropped
 -- Run this in a separate SQL worksheet (not here).
--- Full spec is in the provisioning SQL (configure_attendee_account.template.sql).
+-- Full spec is in setup.sql.
 
 DROP MCP SERVER IF EXISTS LENDING.LOANS.CREDIT_ANALYST_MCP;
 

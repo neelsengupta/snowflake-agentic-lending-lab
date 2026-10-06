@@ -22,11 +22,6 @@ USE WAREHOUSE LENDING_WH;
    hosts every model the lab's agents use. */
 ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'ANY_REGION';
 
-/* Open Snowsight in the right place. */
-ALTER USER IDENTIFIER(CURRENT_USER()) SET
-    DEFAULT_WAREHOUSE = LENDING_WH
-    DEFAULT_NAMESPACE = 'LENDING.LOANS';
-
 CREATE DATABASE LENDING;
 CREATE SCHEMA LENDING.LOANS;
 USE SCHEMA LENDING.LOANS;
@@ -1005,18 +1000,6 @@ tool_resources:
       warehouse: "LENDING_WH"
       query_timeout: 60
   $$;
-
-/* Pre-run the improved agent's evaluation during provisioning. Its definition
-   is identical for every attendee, so there's nothing attendee-specific to
-   measure — Step 3.2.3 in the lab just reads this run instead of starting
-   its own, saving a 5-10 min wait. Fixed run name so the docs can reference
-   it directly. */
-
-CALL EXECUTE_AI_EVALUATION(
-  'START',
-  OBJECT_CONSTRUCT('run_name', 'improved'),
-  '@LENDING.LOANS.LAB_STAGE/credit_analyst_eval.yaml'
-);
 
 CREATE OR REPLACE AGENT LENDING.LOANS.UNDERWRITING_AGENT
   WITH PROFILE = '{"display_name": "Underwriting Agent"}'
