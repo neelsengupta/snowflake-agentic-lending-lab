@@ -1,12 +1,12 @@
 -- ============================================================
--- lab.sql  —  Snowflake World Tour Auckland: AI Underwriting Lab
+-- lab.sql  —  Agentic lending lab: AI Underwriting
 -- ============================================================
 -- Each section is labelled with the module step it belongs to.
 -- To run a block: select the statements and press
 --   Cmd+Return  (Mac) / Ctrl+Enter  (Windows)
 -- ============================================================
 
-USE ROLE LENDING_ROLE;
+USE ROLE ACCOUNTADMIN;
 USE WAREHOUSE LENDING_WH;
 USE DATABASE LENDING;
 USE SCHEMA LOANS;

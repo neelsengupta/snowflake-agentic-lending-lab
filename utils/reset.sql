@@ -45,22 +45,5 @@ DELETE FROM LENDING.LOANS.UNDERWRITING_LOG WHERE APPLICANT_ID = 'APP_2001';
 
 
 -- ── Step 4: restore workspace files ──────────────────────────────────────────
--- Restores the agent YAML placeholders and SQL files to their original state.
-
-COPY FILES
-    INTO snow://workspace/LENDING.PUBLIC.COCO_LAB/versions/live/cortex_project/
-    FROM @LENDING.LOANS.LAB_STAGE/workspace_seed/
-    FILES = ('cortex-project.yaml', 'CREDIT_ANALYST_AGENT_BASELINE.agent.yaml',
-             'CREDIT_ANALYST_AGENT_IMPROVED.agent.yaml',
-             'UNDERWRITING_AGENT.agent.yaml',
-             'UNDERWRITER_WITH_DELEGATION_AGENT.agent.yaml');
-
-COPY FILES
-    INTO snow://workspace/LENDING.PUBLIC.COCO_LAB/versions/live/
-    FROM @LENDING.LOANS.LAB_STAGE/workspace_seed/
-    FILES = ('lab.sql');
-
-COPY FILES
-    INTO snow://workspace/LENDING.PUBLIC.COCO_LAB/versions/live/utils/
-    FROM @LENDING.LOANS.LAB_STAGE/workspace_seed/
-    FILES = ('reset.sql', 'helpful_queries.sql');
+-- To put the agent YAML files and lab.sql back to how they started, open the
+-- Changes tab at the top of the file list and discard your changes.

@@ -1,94 +1,34 @@
--- Agentic lending lab: setup for a Snowflake trial account
+-- Agentic lending lab: setup for a new Snowflake trial account
 --
--- Run by 00_bootstrap.sql through EXECUTE IMMEDIATE FROM, as ACCOUNTADMIN.
--- Files are copied from the lab's public GitHub repository, which the bootstrap
--- attaches as LAB_SETUP.PUBLIC.LAB_REPO.
+-- Open this file in the snowflake-agentic-lending-lab workspace you created
+-- from the lab's GitHub repository, then choose Run All. It takes a few
+-- minutes.
 --
--- Safe to re-run: it rebuilds the LENDING database from scratch.
+-- Everything runs as ACCOUNTADMIN, the role a trial account signs you in with.
+-- The documents and evaluation settings are copied from your workspace, so the
+-- workspace must keep the name Snowflake gave it.
 
 USE ROLE ACCOUNTADMIN;
 
 /* Small and quick to suspend so the lab does not eat trial credits. */
-CREATE OR REPLACE WAREHOUSE LENDING_WH
+CREATE WAREHOUSE LENDING_WH
     WAREHOUSE_SIZE = 'XSMALL'
     AUTO_SUSPEND = 60
     AUTO_RESUME = TRUE
     INITIALLY_SUSPENDED = TRUE;
 USE WAREHOUSE LENDING_WH;
 
-/* Show full SQL syntax errors, which helps when troubleshooting the lab. */
-ALTER ACCOUNT SET ENABLE_UNREDACTED_QUERY_SYNTAX_ERROR = TRUE;
-
-/* The lab role. Everything in the LENDING database is owned by it. */
-USE ROLE SECURITYADMIN;
-CREATE ROLE IF NOT EXISTS LENDING_ROLE;
-GRANT ROLE LENDING_ROLE TO ROLE ACCOUNTADMIN;
-
-USE ROLE ACCOUNTADMIN;
-GRANT CREATE DATABASE ON ACCOUNT TO ROLE LENDING_ROLE;
-GRANT CREATE ROLE ON ACCOUNT TO ROLE LENDING_ROLE;
-GRANT CREATE WAREHOUSE ON ACCOUNT TO ROLE LENDING_ROLE;
-GRANT MANAGE GRANTS ON ACCOUNT TO ROLE LENDING_ROLE;
-GRANT CREATE INTEGRATION ON ACCOUNT TO ROLE LENDING_ROLE;
-GRANT CREATE APPLICATION PACKAGE ON ACCOUNT TO ROLE LENDING_ROLE;
-GRANT CREATE APPLICATION ON ACCOUNT TO ROLE LENDING_ROLE;
-GRANT IMPORT SHARE ON ACCOUNT TO ROLE LENDING_ROLE;
-GRANT USAGE ON WAREHOUSE LENDING_WH TO ROLE LENDING_ROLE;
-
-/* Grant the lab role to whoever is running setup, and make it their default so
-   Snowsight opens in the right place. */
-EXECUTE IMMEDIATE $$
-DECLARE
-    me VARCHAR DEFAULT CURRENT_USER();
-BEGIN
-    GRANT ROLE LENDING_ROLE TO USER IDENTIFIER(:me);
-    ALTER USER IDENTIFIER(:me) SET
-        DEFAULT_ROLE = LENDING_ROLE
-        DEFAULT_WAREHOUSE = LENDING_WH
-        DEFAULT_NAMESPACE = 'LENDING.LOANS';
-    RETURN 'LENDING_ROLE granted to ' || me;
-END;
-$$;
-
--- Create the database and schemas using LENDING_ROLE
-use role LENDING_ROLE;
-
-create or replace database LENDING;
-create or replace schema LENDING.LOANS;
-
--- If data sharing enambled, create a database from the share
--- ensure internal marketplace datasets are available
--- uncomment the following code if mounting data from a share
--- use role accountadmin;
--- SHOW AVAILABLE LISTINGS IS_ORGANIZATION = TRUE;
--- call SYSTEM$REQUEST_LISTING_AND_WAIT('<global listing id>', 20);
--- create database if not exists <child_db_name> from listing ORGDATACLOUD$INTERNAL$<ULL>;
--- grant imported privileges on database <child_db_name> to role PUBLIC;
--- grant imported privileges on database <child_db_name> to role event_role;
-
------ Enable Cortex Code & Cortex Code CLI -----
-USE ROLE ACCOUNTADMIN;
+/* Let Cortex use models hosted outside the account's region. Not every region
+   hosts every model the lab's agents use. */
 ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'ANY_REGION';
-GRANT DATABASE ROLE SNOWFLAKE.CORTEX_USER TO ROLE LENDING_ROLE;
-GRANT DATABASE ROLE SNOWFLAKE.CORTEX_USER TO ROLE PUBLIC;
 
-/* Agent evaluations run through a task, so the attendee role needs EXECUTE TASK
-   on the account. Owning the schema is not enough. Without this, every
-   evaluation in Module 3 fails.
+/* Open Snowsight in the right place. */
+ALTER USER IDENTIFIER(CURRENT_USER()) SET
+    DEFAULT_WAREHOUSE = LENDING_WH
+    DEFAULT_NAMESPACE = 'LENDING.LOANS';
 
-   USE AI FUNCTIONS is granted to PUBLIC by default and the evaluation judges
-   call AI_COMPLETE, so that one needs nothing here. */
-
-GRANT EXECUTE TASK ON ACCOUNT TO ROLE LENDING_ROLE;
----------------------------------
-
-
------ Provision the lending lab -----
-/* The database above is owned by the attendee role. Everything below has to be
-   created by that role too. */
-
-USE ROLE LENDING_ROLE;
-USE WAREHOUSE LENDING_WH;
+CREATE DATABASE LENDING;
+CREATE SCHEMA LENDING.LOANS;
 USE SCHEMA LENDING.LOANS;
 
 /* ---------------------------------------------------------------------------
@@ -189,11 +129,9 @@ CREATE OR REPLACE TABLE LENDING.LOANS.CREDIT_MEMO (
 
    DIRECTORY is required: the parse step enumerates the stage to find its input.
    Encryption is set explicitly so the stage does not inherit an account default.
-
-   IF NOT EXISTS, not OR REPLACE: replacing a stage deletes the documents on it.
    --------------------------------------------------------------------------- */
 
-CREATE STAGE IF NOT EXISTS LENDING.LOANS.LAB_FILES
+CREATE STAGE LENDING.LOANS.LAB_FILES
     DIRECTORY = (ENABLE = TRUE)
     ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE')
     COMMENT = 'Lab data: the documents applicants submitted';
@@ -693,47 +631,25 @@ CREATE OR REPLACE SEMANTIC VIEW LENDING.LOANS.APPLICATION_ANALYTICS
     COMMENT = 'Loan applications for Northwind Financial consumer lending: what was requested, what the bureau reported, and what has been decided.';
 
 
-/* ---------------------------------------------------------------------------
-   13. Verify the policy engine: the same applicant, on each ratio.
-   --------------------------------------------------------------------------- */
-
-SELECT 'reported 0.19'  AS ASSESSED_ON,
-       LENDING.LOANS.POLICY_CHECK(771, 0.19, 75000, 163000) AS POLICY
-UNION ALL
-SELECT 'diligence 0.52',
-       LENDING.LOANS.POLICY_CHECK(771, 0.52, 75000, 163000);
 ---------------------------------
 
 ----- Load the applicant documents onto the stage -----
-/* The PDFs live in the lab repository under data/lab_files/. COPY FILES copies
-   them from the Git repository stage byte for byte, uncompressed, which is what
-   AI_PARSE_DOCUMENT needs. */
-
-USE ROLE LENDING_ROLE;
-USE SCHEMA LENDING.LOANS;
-
-ALTER GIT REPOSITORY LAB_SETUP.PUBLIC.LAB_REPO FETCH;
+/* The PDFs are in this workspace under data/lab_files/. AI_PARSE_DOCUMENT can
+   only read from a stage, so they are copied onto one. COPY FILES copies them
+   byte for byte, uncompressed, which is what AI_PARSE_DOCUMENT needs. */
 
 COPY FILES
     INTO @LENDING.LOANS.LAB_FILES
-    FROM @LAB_SETUP.PUBLIC.LAB_REPO/branches/main/data/lab_files/
-    PATTERN = '.*[.]pdf';
+    FROM 'snow://workspace/USER$.PUBLIC."snowflake-agentic-lending-lab"/versions/live/data/lab_files/';
 
 /* Without REFRESH the directory table stays empty. */
 ALTER STAGE LENDING.LOANS.LAB_FILES REFRESH;
-
-SELECT COUNT(*) AS DOCUMENTS_ON_STAGE
-FROM DIRECTORY(@LENDING.LOANS.LAB_FILES);
 ---------------------------------
 
 
 ----- Build the reasoning layer -----
 /* Parses the staged documents and indexes them for search. Has to run after the
    COPY FILES above. Attendees do not build this. */
-
-USE ROLE LENDING_ROLE;
-USE WAREHOUSE LENDING_WH;
-USE SCHEMA LENDING.LOANS;
 
 /* One row per document.
 
@@ -891,9 +807,9 @@ CALL SYSTEM$CREATE_EVALUATION_DATASET(
    documents the applicants submitted, which Module 1 lists back. A config file
    in there would look like a thirteenth document.
 
-   The files are copied from the lab repository. */
+   The files are copied from this workspace. */
 
-CREATE FILE FORMAT IF NOT EXISTS
+CREATE FILE FORMAT
     LENDING.LOANS.YAML_FILE_FORMAT
     TYPE = 'CSV'
     FIELD_DELIMITER = NONE
@@ -903,25 +819,18 @@ CREATE FILE FORMAT IF NOT EXISTS
     ESCAPE_UNENCLOSED_FIELD = NONE
     COMMENT = 'Reads a YAML file as lines of text';
 
--- Drop the old EVAL_CONFIG stage name if it exists from a previous provisioning run.
-DROP STAGE IF EXISTS LENDING.LOANS.EVAL_CONFIG;
-
-CREATE STAGE IF NOT EXISTS
+CREATE STAGE
     LENDING.LOANS.LAB_STAGE
+    DIRECTORY = (ENABLE = TRUE)
     FILE_FORMAT = LENDING.LOANS.YAML_FILE_FORMAT
-    COMMENT = 'Lab configuration files: evaluation config, workspace seed files, and agent specs';
+    COMMENT = 'Lab configuration files: the evaluation configurations';
 
 COPY FILES
     INTO @LENDING.LOANS.LAB_STAGE/
-    FROM @LAB_SETUP.PUBLIC.LAB_REPO/branches/main/data/eval/
-    FILES = ('credit_analyst_baseline_eval.yaml', 'credit_analyst_eval.yaml');
+    FROM 'snow://workspace/USER$.PUBLIC."snowflake-agentic-lending-lab"/versions/live/data/eval/';
+
+ALTER STAGE LENDING.LOANS.LAB_STAGE REFRESH;
 ---------------------------------
-
------ Upload workspace seed files to stage -----
-
-COPY FILES
-    INTO @LENDING.LOANS.LAB_STAGE/workspace_seed/
-    FROM @LAB_SETUP.PUBLIC.LAB_REPO/branches/main/data/workspace_seed/;
 
 ----- Provision Module 3 improved agent and Module 4 agents and MCP server -----
 
@@ -1486,65 +1395,23 @@ mcp_servers:
 
 ---------------------------------
 
------ Seed the CoCo workspace project structure -----
-/* A shared lab workspace, so setup controls the path rather than writing into
-   the participant's personal workspace.
+----- Check the setup -----
+/* One row. Every column should read as described in setup step 3 of the lab
+   guide. APP_1005 submitted no documents, so five applicants have them. */
 
-   Participants open COCO_LAB at the start of the lab and CoCo operates within
-   it for the whole session. */
+SELECT
+    (SELECT COUNT(*) FROM LENDING.LOANS.DOCUMENT_TEXT
+      WHERE DOC_TEXT IS NOT NULL AND DOC_TEXT <> '')          AS DOCUMENTS_PARSED,
+    (SELECT COUNT(DISTINCT APPLICANT_ID)
+       FROM LENDING.LOANS.DOCUMENT_TEXT)                       AS APPLICANTS_WITH_DOCUMENTS,
+    (SELECT COUNT(*) FROM LENDING.LOANS.DOCUMENT_CHUNKS)       AS PASSAGES_INDEXED,
+    ARRAY_SIZE(PARSE_JSON(SNOWFLAKE.CORTEX.SEARCH_PREVIEW(
+        'LENDING.LOANS.DOCUMENT_SEARCH',
+        '{"query": "monthly payment obligation on a loan",
+          "columns": ["CHUNK_TEXT"],
+          "filter": {"@eq": {"APPLICANT_ID": "APP_1004"}},
+          "limit": 3}'))['results'])                           AS SEARCH_RESULTS,
+    (SELECT COUNT(*) FROM DIRECTORY(@LENDING.LOANS.LAB_STAGE)) AS EVAL_CONFIGS,
+    IFF(DOCUMENTS_PARSED = 12 AND SEARCH_RESULTS = 3 AND EVAL_CONFIGS = 2,
+        'Setup complete', 'Setup incomplete: check the columns')  AS STATUS;
 
-
-CREATE OR REPLACE WORKSPACE LENDING.PUBLIC.COCO_LAB;
-
-ALTER WORKSPACE LENDING.PUBLIC.COCO_LAB ADD LIVE VERSION FROM LAST;
-
-COPY FILES
-    INTO snow://workspace/LENDING.PUBLIC.COCO_LAB/versions/live/cortex_project/
-    FROM @LENDING.LOANS.LAB_STAGE/workspace_seed/
-    FILES = ('cortex-project.yaml', 'CREDIT_ANALYST_AGENT_BASELINE.agent.yaml',
-             'CREDIT_ANALYST_AGENT_IMPROVED.agent.yaml',
-             'UNDERWRITING_AGENT.agent.yaml',
-             'UNDERWRITER_WITH_DELEGATION_AGENT.agent.yaml');
-
-COPY FILES
-    INTO snow://workspace/LENDING.PUBLIC.COCO_LAB/versions/live/
-    FROM @LENDING.LOANS.LAB_STAGE/workspace_seed/
-    FILES = ('lab.sql');
-
-COPY FILES
-    INTO snow://workspace/LENDING.PUBLIC.COCO_LAB/versions/live/utils/
-    FROM @LENDING.LOANS.LAB_STAGE/workspace_seed/
-    FILES = ('reset.sql', 'helpful_queries.sql');
-
-ALTER WORKSPACE LENDING.PUBLIC.COCO_LAB COMMIT;
-
-GRANT OWNERSHIP ON WORKSPACE LENDING.PUBLIC.COCO_LAB
-    TO ROLE LENDING_ROLE
-    COPY CURRENT GRANTS;
----------------------------------
-
-
------ Verify the reasoning layer -----
-/* APP_1005 submitted no documents, so five applicants have them, not six. */
-
-SELECT COUNT(*)                                   AS DOCUMENTS_PARSED,
-       COUNT_IF(DOC_TEXT IS NULL OR DOC_TEXT = '') AS EMPTY_PARSES,
-       COUNT(DISTINCT APPLICANT_ID)               AS APPLICANTS_WITH_DOCUMENTS
-FROM LENDING.LOANS.DOCUMENT_TEXT;
-
-SELECT COUNT(*) AS PASSAGES_INDEXED
-FROM LENDING.LOANS.DOCUMENT_CHUNKS;
-
-/* The question Module 2 asks. Nothing returned here means the service was
-   created but is not serving. */
-
-SELECT value['DOC_TYPE']::VARCHAR   AS DOC_TYPE,
-       value['CHUNK_TEXT']::VARCHAR AS PASSAGE
-FROM TABLE(FLATTEN(PARSE_JSON(SNOWFLAKE.CORTEX.SEARCH_PREVIEW(
-         'LENDING.LOANS.DOCUMENT_SEARCH',
-         '{"query": "monthly payment obligation on a loan",
-            "columns": ["DOC_TYPE", "CHUNK_TEXT"],
-            "filter": {"@eq": {"APPLICANT_ID": "APP_1004"}},
-            "limit": 3}'
-     ))['results']));
----------------------------------
