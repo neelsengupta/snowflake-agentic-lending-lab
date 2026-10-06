@@ -1,0 +1,204 @@
+{% set class = "md-header" %} {% if "navigation.tabs.sticky" in features %} {%
+set class = class ~ " md-header--shadow md-header--lifted" %} {% elif
+"navigation.tabs" not in features %} {% set class = class ~ " md-header--shadow"
+%} {% endif %}
+
+<!-- Header -->
+<header class="{{ class }}" data-md-component="header">
+  <nav
+    class="md-header__inner dataops-header"
+    aria-label="{{ lang.t('header') }}"
+  >
+    <!-- DataOps.live app switcher -->
+    <div class="app-switcher">
+      <!-- Switcher button -->
+      <button
+        onclick="onAppSwitcherClick()"
+        id="app-switcher-button"
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        data-headlessui-state=""
+      >
+        <img width="20" src="assets/img/dot-grid.svg" />
+      </button>
+
+      <!-- Options -->
+      <ul
+        class="app-switcher-options hidden"
+        aria-labelledby="headlessui-listbox-button-:r0:"
+        aria-orientation="vertical"
+        id="app-switcher-options"
+        role="listbox"
+        tabindex="0"
+        data-headlessui-state="open"
+      >
+        <li
+          id="headlessui-listbox-option-:r1h:"
+          role="option"
+          tabindex="-1"
+          aria-selected="false"
+          data-headlessui-state=""
+        >
+          <a
+            href="https://app.dataops.live"
+            target="_self"
+            rel="noreferrer"
+            class="block truncate font-normal"
+            >Operate</a
+          >
+        </li>
+        <li
+          id="headlessui-listbox-option-:r1i:"
+          role="option"
+          tabindex="-1"
+          aria-selected="false"
+          data-headlessui-state=""
+        >
+          <a
+            href="https://observability.dataops.live"
+            target="_self"
+            rel="noreferrer"
+            class="block truncate font-normal"
+            >Observe</a
+          >
+        </li>
+        <li
+          id="headlessui-listbox-option-:r1j:"
+          role="option"
+          tabindex="-1"
+          aria-selected="false"
+          data-headlessui-state=""
+        >
+          <a
+            href="https://docs.dataops.live/"
+            target="_blank"
+            rel="noreferrer"
+            class="block truncate font-normal"
+            >Learn</a
+          >
+        </li>
+        <li
+          id="headlessui-listbox-option-:r1k:"
+          role="option"
+          tabindex="-1"
+          aria-selected="false"
+          data-headlessui-state=""
+        >
+          <a
+            href="https://community.dataops.live/"
+            target="_blank"
+            rel="noreferrer"
+            class="block truncate font-normal"
+            >Engage</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <!-- DataOps.live logo -->
+    <div class="dataops-logo-container">
+      <a
+        href="https://www.dataops.live/snowflake-solution-center"
+        target="_blank"
+        rel="noreferrer"
+        ><img
+          height="32"
+          src="assets/img/dataops-logo-with-tagline.svg"
+          alt="DataOps.live"
+      /></a>
+    </div>
+
+    <!-- portal logo -->
+    <div class="portal-logo-container">
+      <a href="/"
+        ><img
+          height="25"
+          src="{{ portal_logo_path }}"
+          alt="{{ portal_logo_alt }}"
+      /></a>
+    </div>
+
+    <!-- Portal name -->
+    <div class="portal-name">
+      <a href="/">{{ portal_name }}</a>
+    </div>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      {% set icon = config.theme.icon.menu or "material/menu" %} {% include
+      ".icons/" ~ icon ~ ".svg" %}
+    </label>
+
+    <!-- Header title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis"> {{ config.site_name }} </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            {% if page.meta and page.meta.title %} {{ page.meta.title }} {% else
+            %} {{ page.title }} {% endif %}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette toggle -->
+    {% if config.theme.palette %} {% if not config.theme.palette is mapping %}
+    {% include "partials/palette.html" %} {% endif %} {% endif %}
+
+    <!-- User preference: color palette -->
+    {% if not config.theme.palette is mapping %} {% include
+    "partials/javascripts/palette.html" %} {% endif %}
+
+    <!-- Site language selector -->
+    {% if config.extra.alternate %} {% include "partials/alternate.html" %} {%
+    endif %}
+
+    <!-- Button to open search modal -->
+    {% if "material/search" in config.plugins %}
+    <label class="md-header__button md-icon" for="__search">
+      {% set icon = config.theme.icon.search or "material/magnify" %} {% include
+      ".icons/" ~ icon ~ ".svg" %}
+    </label>
+
+    <!-- Search interface -->
+    {% include "partials/search.html" %} {% endif %}
+
+    <!-- Repository information -->
+    {% if config.repo_url %}
+    <div class="md-header__source">{% include "partials/source.html" %}</div>
+    {% endif %}
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  {% if "navigation.tabs.sticky" in features %} {% if "navigation.tabs" in
+  features %} {% include "partials/tabs.html" %} {% endif %} {% endif %}
+</header>
+
+<script>
+  function onAppSwitcherClick() {
+    const appSwitcherButton = document.getElementById("app-switcher-button");
+    const appSwitcherPanel = document.getElementById("app-switcher-options");
+    appSwitcherButton.classList.toggle("app-switcher-active");
+    appSwitcherPanel.classList.toggle("hidden");
+  }
+</script>
+
+<!-- Close the app switcher panel is the user clicks away -->
+<script>
+  window.addEventListener("click", function (e) {
+    const appSwitcherButton = document.getElementById("app-switcher-button");
+    const appSwitcherPanel = document.getElementById("app-switcher-options");
+
+    if (
+      !appSwitcherButton.contains(e.target) &&
+      !appSwitcherPanel.contains(e.target)
+    ) {
+      appSwitcherButton.classList.remove("app-switcher-active");
+      appSwitcherPanel.classList.add("hidden");
+    }
+  });
+</script>

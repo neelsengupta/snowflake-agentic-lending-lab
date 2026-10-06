@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+docs/site/
+.wrangler/
+node_modules/
+.DS_Store

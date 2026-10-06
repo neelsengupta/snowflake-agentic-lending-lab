@@ -1,0 +1,73 @@
+site_name: Event
+nav:
+  - Welcome:
+    - index.md
+  - Module 1:
+    - module-1.md
+  - Module 2:
+    - module-2.md
+  - Module 3:
+    - module-3.md
+  - Module 4:
+    - module-4.md
+  - Next Steps:
+    - references.md
+site_url: ""
+use_directory_urls: false
+plugins:
+  - macros:
+      include_dir: include
+      on_error_fail: false
+      on_undefined: keep
+      verbose: true
+  - search
+  - offline
+  - glightbox
+  - print-site
+theme:
+  name: material
+  logo: assets/img/logo.png
+  features:
+    - toc.integrate
+    - content.tabs.link
+    - content.code.copy
+    - content.code.annotation
+    - navigation.footer
+    - navigation.tabs
+    - navigation.tabs.sticky
+    # - navigation.tracking
+    - navigation.sections
+    # - navigation.expand
+  language: en
+  palette:
+    scheme: default
+    primary: light-blue
+    accent: blue
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.keys
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.mark
+  - attr_list
+  - def_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.blocks.html
+
+extra_css:
+  - stylesheets/extra.css

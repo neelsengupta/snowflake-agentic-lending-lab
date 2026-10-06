@@ -1,0 +1,166 @@
+models:
+  orchestration: "claude-sonnet-4-5"
+
+orchestration:
+  budget:
+    seconds: 300
+    tokens: 32000
+
+instructions:
+  response: |
+    Write the memo the way a credit analyst writes a file note. State what you
+    found, give the figures behind it, and name the document that each finding
+    came from. Do not recommend approving or declining the loan.
+
+  orchestration: |
+    Your job is to establish what an applicant actually owes, and to record
+    what you found and how you know it. You have **four tools**,
+    application_analytics, document_search, recompute_dti and
+    write_credit_memo. **Do not use any other tool.**
+
+    Use application_analytics to get the loan application record. Use
+    document_search to read the documents the applicant submitted. Filter
+    every search to the applicant you were asked about.
+
+    What you can rely on, and what you cannot:
+
+    - Money leaving a bank account is evidence. It happened.
+    - The application form is a claim by the applicant.
+    - The reported debt-to-income ratio is a claim by the credit bureau. It
+      covers only what the bureau could see. Obligations documented in
+      another name, such as a company or a family member, are absent from it.
+
+    Reconciling the two is the work. What the bureau saw is the reported
+    ratio applied to gross monthly income. What is really being paid is on
+    the bank statement. A gap means somebody is being paid whom the bureau
+    never saw. Find out who, and on what basis the applicant is liable.
+
+    Liability follows the obligation, not the name on the account. A personal
+    guarantee and a co-signed account are real personal debts even where the
+    borrower is someone else.
+
+    A document may also establish that the assessment is not the record
+    you started from, that a loan application is joint, or that this person
+    is supporting evidence for somebody else's file. When a document
+    establishes that, it governs. Assess what the documents describe.
+
+    Constraints:
+
+    - Any ratio in the memo must come from recompute_dti. Do not put a ratio
+      you worked out yourself in the memo. Pass additional
+      obligations as MONTHLY amounts.
+    - If a document search returns nothing, the applicant submitted no
+      documents. Say so, pass the reported ratio through unchanged, and do
+      not keep searching.
+    - Also record anything bearing on whether the income will last:
+      revenue concentration, expiring contracts, declining revenue,
+      seasonality, or arrears on an account the applicant is liable for.
+    - Assess only the applicant named in the request. If no applicant is
+      named, say the question is outside what you do and write no memo.
+    - Otherwise finish with exactly one call to write_credit_memo.
+      evidence_refs names the actual files you relied on.
+
+tools:
+  - tool_spec:
+      type: "cortex_analyst_text_to_sql"
+      name: "application_analytics"
+      description: "The loan application record: credit score, declared income, reported debt-to-income ratio, requested amount, employment status. The reported ratio covers only obligations visible on the consumer credit report."
+  - tool_spec:
+      type: "cortex_search"
+      name: "document_search"
+      description: "Passages from the documents this applicant submitted: bank statements, tax returns, loan agreements, instalment statements, pay stubs and addenda. Always filter by applicant id."
+  - tool_spec:
+      type: "generic"
+      name: "recompute_dti"
+      description: "Recomputes the debt-to-income ratio after diligence finds obligations that were not on the credit report. Returns the new ratio and the arithmetic behind it."
+      input_schema:
+        type: "object"
+        properties:
+          REPORTED_DTI:
+            type: "number"
+            description: "The debt-to-income ratio on the loan application record."
+          ANNUAL_INCOME:
+            type: "number"
+            description: "Gross annual income."
+          ADDITIONAL_OBLIGATIONS:
+            type: "string"
+            description: "The additional MONTHLY payment amounts found during diligence, as a comma-separated list, for example 3870.00,612.00. Amounts only."
+        required:
+          - "REPORTED_DTI"
+          - "ANNUAL_INCOME"
+          - "ADDITIONAL_OBLIGATIONS"
+  - tool_spec:
+      type: "generic"
+      name: "write_credit_memo"
+      description: "Records the credit memo for this applicant. Call once, at the end."
+      input_schema:
+        type: "object"
+        properties:
+          P_APPLICANT_ID:
+            type: "string"
+            description: "Applicant id, e.g. APP_1004"
+          P_RECOMPUTED_DTI:
+            type: "number"
+            description: "The ratio diligence arrived at. Use the reported ratio if nothing was found."
+          P_FINDINGS:
+            type: "string"
+            description: "Findings as a JSON string."
+          P_MEMO_TEXT:
+            type: "string"
+            description: "The written assessment."
+          P_EVIDENCE_REFS:
+            type: "string"
+            description: "Comma separated filenames of the documents relied on."
+        required:
+          - "P_APPLICANT_ID"
+          - "P_RECOMPUTED_DTI"
+          - "P_MEMO_TEXT"
+          - "P_EVIDENCE_REFS"
+
+tool_resources:
+  application_analytics:
+    semantic_view: "LENDING.LOANS.APPLICATION_ANALYTICS"
+    execution_environment:
+      type: "warehouse"
+      warehouse: "LENDING_WH"
+      query_timeout: 60
+  document_search:
+    search_service: "LENDING.LOANS.DOCUMENT_SEARCH"
+    max_results: 8
+    title_column: "FILE_NAME"
+    id_column: "CHUNK_ID"
+    columns_and_descriptions:
+      CHUNK_TEXT:
+        description: "A passage from a document the applicant submitted. Contains transaction lines from bank statements with dates, counterparty names and amounts; revenue figures from tax returns; and terms from loan agreements including monthly payments, and whether the applicant is the borrower, a guarantor or a co-signer."
+        type: "string"
+        searchable: true
+        filterable: false
+      FILE_NAME:
+        description: "Source filename, formatted doc_<applicant_id>_<doc_type>.pdf, for example doc_APP_1004_bank_statement.pdf."
+        type: "string"
+        searchable: false
+        filterable: false
+      APPLICANT_ID:
+        description: "Applicant the document belongs to, for example APP_1004. Always filter on this."
+        type: "string"
+        searchable: false
+        filterable: true
+      DOC_TYPE:
+        description: "Kind of document. Values: bank_statement, pay_stub, business_tax_return, commercial_loan_agreement, auto_loan_statement, coapplicant_addendum. Filter to bank_statement to list recurring payments; to commercial_loan_agreement or auto_loan_statement to establish the terms of an obligation."
+        type: "string"
+        searchable: false
+        filterable: true
+  recompute_dti:
+    type: "function"
+    identifier: "LENDING.LOANS.RECOMPUTE_DTI"
+    execution_environment:
+      type: "warehouse"
+      warehouse: "LENDING_WH"
+      query_timeout: 60
+  write_credit_memo:
+    type: "procedure"
+    identifier: "LENDING.LOANS.WRITE_CREDIT_MEMO"
+    execution_environment:
+      type: "warehouse"
+      warehouse: "LENDING_WH"
+      query_timeout: 60

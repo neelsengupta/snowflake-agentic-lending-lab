@@ -1,0 +1,63 @@
+<!-- Build details for debugging -->
+<div id="build-details" hidden>
+  <a id="build-details-location"></a>
+  {%- for key in dataopslive -%}
+  <div>{{key}}: <span id="{{key}}">{{dataopslive[key]}}</span></div>
+  {%- endfor -%}
+  <div id="dataopslive.plugin.data" style="display: none">{{dataopslive}}</div>
+</div>
+<div
+  style="background-color: #24323d; margin: 0; width: 100%; height: 74px"
+></div>
+
+<!-- Footer -->
+<div id="footer">
+  <!-- Powered by DataOps -->
+  <a
+    id="powered-by-dataops"
+    href="https://www.dataops.live/snowflake-solution-center"
+    target="_blank"
+    rel="noreferrer"
+    ><img height="41" src="assets/img/powered-by-dataops.png"
+  /></a>
+
+  <!-- TrueDataOps -->
+  <div id="true-dataops-link">
+    <a href="https://www.truedataops.org/" target="_blank" rel="noreferrer"
+      >#TrueDataOps</a
+    >
+  </div>
+
+  <!-- DataOps for Dummies Ebook -->
+  <div id="dataops-for-dummies-link">
+    <a
+      href="https://www.dataops.live/dataops-for-dummies-download"
+      target="_blank"
+      rel="noreferrer"
+      >DataOps for Dummies Ebook</a
+    >
+  </div>
+</div>
+
+<!-- Load build details for debugging -->
+<script>
+  var dataopslive = {{ dataopslive }}
+  let toggle = () => {
+    let element = document.getElementById("build-details");
+    let hidden = element.getAttribute("hidden");
+
+    if (hidden) {
+      element.removeAttribute("hidden");
+    } else {
+      element.setAttribute("hidden", "hidden");
+    }
+  };
+
+  const mkdocsFooter = document.getElementsByClassName("md-footer-meta")[0];
+  mkdocsFooter.remove();
+</script>
+<style>
+  .dataops-link:hover {
+    color: white;
+  }
+</style>

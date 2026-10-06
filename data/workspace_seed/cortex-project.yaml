@@ -1,0 +1,22 @@
+version: 1
+artifacts:
+  - path: CREDIT_ANALYST_AGENT_BASELINE.agent.yaml
+    type: cortex_agent
+    targets:
+      default:
+        object: LENDING.LOANS.CREDIT_ANALYST_AGENT_BASELINE
+  - path: CREDIT_ANALYST_AGENT_IMPROVED.agent.yaml
+    type: cortex_agent
+    targets:
+      default:
+        object: LENDING.LOANS.CREDIT_ANALYST_AGENT_IMPROVED
+  - path: UNDERWRITING_AGENT.agent.yaml
+    type: cortex_agent
+    targets:
+      default:
+        object: LENDING.LOANS.UNDERWRITING_AGENT
+  - path: UNDERWRITER_WITH_DELEGATION_AGENT.agent.yaml
+    type: cortex_agent
+    targets:
+      default:
+        object: LENDING.LOANS.UNDERWRITER_WITH_DELEGATION_AGENT

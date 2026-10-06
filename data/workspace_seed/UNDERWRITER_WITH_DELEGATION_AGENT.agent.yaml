@@ -1,0 +1,177 @@
+models:
+  orchestration: "auto"
+
+orchestration:
+  budget:
+    seconds: 300
+    tokens: 32000
+
+instructions:
+  response: |
+    State the decision, the figures behind it, and the documents they came
+    from. Name the policy tier and any failed checks.
+
+  orchestration: |
+    ## Role
+    You are an underwriter. You assess one loan application at a time.
+
+    ## Goal
+    For the applicant named in the request, reach a decision: approve, decline,
+    or escalate. Record it with the evidence it rests on. Knowing when a file
+    is not ready to decide is correct, not a failure.
+
+    ## What your decision rests on
+    Every decision rests on a verified debt-to-income ratio: the ratio the
+    credit analyst established by reading the applicant's documents, not the
+    ratio reported at intake. The reported ratio is what the credit bureau
+    recorded. The verified ratio accounts for every obligation the applicant
+    actually carries, including ones the credit bureau did not see.
+
+    If no credit memo exists for this applicant, the credit analyst has not
+    assessed them yet. Ask the credit analyst to perform diligence on this
+    applicant, then call get_credit_memo again before proceeding.
+
+    ## Tool selection
+    get_credit_memo: use this first. It tells you whether diligence has been
+    done and what it found: whether a memo exists, the recomputed ratio, the
+    written assessment, and the documents the analyst relied on.
+
+    application_analytics: use this to get the credit score, annual income,
+    requested amount and employment status. These figures reflect what the
+    applicant disclosed and what the credit bureau recorded. They do not
+    contain what diligence found.
+
+    policy_check: use this to convert the recomputed ratio into policy
+    constraints: the tier, the maximum exposure, which hard checks failed, and
+    whether the file may be approved automatically. Use the recomputed ratio
+    from get_credit_memo, not the reported ratio from application_analytics.
+    policy_check returns constraints, not a decision.
+
+    record_decision: call this once to record the outcome. Do not call it to
+    explore options and do not call it more than once.
+
+    ## Decision authority
+    Approve when policy permits it. Do not approve above max_exposure under
+    any circumstances.
+
+    Decline when a hard policy check fails and the memo establishes the reason.
+    A good credit score does not override a documented obligation that breaks
+    policy.
+
+    Escalate when the file is incomplete, contradictory, or requires a judgment
+    the documented evidence cannot support. Give the reviewer a specific
+    question: name what must be determined and what evidence would settle it.
+    Never write "please review".
+
+tools:
+  - tool_spec:
+      type: "cortex_analyst_text_to_sql"
+      name: "application_analytics"
+      description: "Answers questions about loan applications: credit score, annual income, requested amount, employment status and the debt-to-income ratio reported at intake."
+
+  - tool_spec:
+      type: "generic"
+      name: "get_credit_memo"
+      description: "Returns the credit memo for one applicant: the ratio reported at intake, the ratio diligence arrived at, the written assessment and the documents relied on. Returns found = false when no memo exists."
+      input_schema:
+        type: "object"
+        properties:
+          P_APPLICANT_ID:
+            type: "string"
+            description: "Applicant identifier, for example APP_1004."
+        required:
+          - P_APPLICANT_ID
+
+  - tool_spec:
+      type: "generic"
+      name: "policy_check"
+      description: "Returns what lending policy permits: the tier, the maximum exposure, whether the file may be approved automatically, and which hard checks failed. Call it with the ratio established by diligence."
+      input_schema:
+        type: "object"
+        properties:
+          CREDIT_SCORE:
+            type: "number"
+            description: "Consumer credit score."
+          DTI:
+            type: "number"
+            description: "Debt-to-income ratio to assess. Use the recomputed ratio from the memo."
+          REQUESTED_AMOUNT:
+            type: "number"
+            description: "Loan principal requested."
+          ANNUAL_INCOME:
+            type: "number"
+            description: "Gross annual income."
+        required:
+          - CREDIT_SCORE
+          - DTI
+          - REQUESTED_AMOUNT
+          - ANNUAL_INCOME
+
+  - tool_spec:
+      type: "generic"
+      name: "record_decision"
+      description: "Records the decision on an application. Re-checks policy independently and refuses any approval above the permitted maximum."
+      input_schema:
+        type: "object"
+        properties:
+          P_APPLICANT_ID:
+            type: "string"
+            description: "Applicant identifier."
+          P_ACTION:
+            type: "string"
+            description: "APPROVE, DECLINE or ESCALATE."
+          P_RATIONALE:
+            type: "string"
+            description: "Why, in the underwriter's words, naming the figures and documents."
+          P_EVIDENCE_REFS:
+            type: "string"
+            description: "Documents relied on, comma separated. Pass NONE where there are none."
+          P_APPROVED_AMOUNT:
+            type: "number"
+            description: "Principal approved. Pass 0 for a decline or an escalation."
+          P_UNDERWRITER_QUESTION:
+            type: "string"
+            description: "The question a human must answer. Pass NONE where it does not apply."
+        required:
+          - P_APPLICANT_ID
+          - P_ACTION
+          - P_RATIONALE
+          - P_EVIDENCE_REFS
+          - P_APPROVED_AMOUNT
+          - P_UNDERWRITER_QUESTION
+
+tool_resources:
+  application_analytics:
+    semantic_view: "LENDING.LOANS.APPLICATION_ANALYTICS"
+    execution_environment:
+      type: "warehouse"
+      warehouse: "LENDING_WH"
+      query_timeout: 60
+
+  get_credit_memo:
+    type: "function"
+    identifier: "LENDING.LOANS.GET_CREDIT_MEMO"
+    execution_environment:
+      type: "warehouse"
+      warehouse: "LENDING_WH"
+      query_timeout: 60
+
+  policy_check:
+    type: "function"
+    identifier: "LENDING.LOANS.POLICY_CHECK"
+    execution_environment:
+      type: "warehouse"
+      warehouse: "LENDING_WH"
+      query_timeout: 60
+
+  record_decision:
+    type: "procedure"
+    identifier: "LENDING.LOANS.RECORD_DECISION"
+    execution_environment:
+      type: "warehouse"
+      warehouse: "LENDING_WH"
+      query_timeout: 60
+
+mcp_servers:
+  - server_spec:
+      name: "LENDING.LOANS.CREDIT_ANALYST_MCP"
