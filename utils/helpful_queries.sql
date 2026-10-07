@@ -18,9 +18,9 @@ WHERE STATUS = 'PENDING';
 -- ── Data: credit memos ───────────────────────────────────────────────────────
 
 -- All credit memos written so far
-SELECT APPLICANT_ID, REPORTED_DTI, RECOMPUTED_DTI, EVIDENCE_REFS, CREATED_AT
+SELECT APPLICANT_ID, REPORTED_DTI, RECOMPUTED_DTI, EVIDENCE_REFS, GENERATED_AT
 FROM LENDING.LOANS.CREDIT_MEMO
-ORDER BY CREATED_AT DESC;
+ORDER BY GENERATED_AT DESC;
 
 -- Delete a credit memo so an agent can rewrite it
 DELETE FROM LENDING.LOANS.CREDIT_MEMO WHERE APPLICANT_ID = 'APP_1004';
@@ -71,10 +71,9 @@ DESCRIBE AGENT LENDING.LOANS.CREDIT_ANALYST_AGENT_IMPROVED;
 DESCRIBE AGENT LENDING.LOANS.UNDERWRITING_AGENT;
 DESCRIBE AGENT LENDING.LOANS.UNDERWRITER_WITH_DELEGATION_AGENT;
 
--- Drop an agent to rebuild from scratch (only drop BASELINE — IMPROVED is pre-provisioned)
+-- Drop the baseline agent to rebuild it from scratch in Step 3.1.1. Do not drop
+-- the other three: setup created them and the lab does not recreate them.
 DROP AGENT IF EXISTS LENDING.LOANS.CREDIT_ANALYST_AGENT_BASELINE;
-DROP AGENT IF EXISTS LENDING.LOANS.UNDERWRITING_AGENT;
-DROP AGENT IF EXISTS LENDING.LOANS.UNDERWRITER_WITH_DELEGATION_AGENT;
 
 -- Restore the live version if the agent has no live version (e.g. after a Deploy commit)
 ALTER AGENT LENDING.LOANS.CREDIT_ANALYST_AGENT_BASELINE ADD LIVE VERSION FROM LAST;
@@ -87,11 +86,8 @@ ALTER AGENT LENDING.LOANS.UNDERWRITER_WITH_DELEGATION_AGENT ADD LIVE VERSION FRO
 
 SHOW MCP SERVERS IN SCHEMA LENDING.LOANS;
 
--- Recreate CREDIT_ANALYST_MCP if it was dropped
--- Run this in a separate SQL worksheet (not here).
--- Full spec is in setup.sql.
-
-DROP MCP SERVER IF EXISTS LENDING.LOANS.CREDIT_ANALYST_MCP;
+-- If CREDIT_ANALYST_MCP is missing, copy its CREATE MCP SERVER statement from
+-- setup.sql and run it in a separate SQL file.
 
 
 -- ── Evaluations ──────────────────────────────────────────────────────────────
