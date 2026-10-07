@@ -1,0 +1,1288 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://neelsengupta.github.io/snowflake-agentic-lending-lab/module-2.html">
+      
+      
+        <link rel="prev" href="module-1.html">
+      
+      
+        <link rel="next" href="module-3.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Module 2 — Explore the Reasoning Layer - Put Agents to Work</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="css/print-site.css">
+    
+      <link rel="stylesheet" href="css/print-site-material.css">
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-2-explore-the-reasoning-layer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Put Agents to Work" class="md-header__button md-logo" aria-label="Put Agents to Work" data-md-component="logo">
+      
+  <img src="assets/img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Put Agents to Work
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Module 2 — Explore the Reasoning Layer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="index.html" class="md-tabs__link">
+          
+  
+  
+  Welcome
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="module-1.html" class="md-tabs__link">
+          
+  
+  
+  Module 1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="module-2.html" class="md-tabs__link">
+          
+  
+  
+  Module 2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="module-3.html" class="md-tabs__link">
+          
+  
+  
+  Module 3
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="module-4.html" class="md-tabs__link">
+          
+  
+  
+  Module 4
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="references.html" class="md-tabs__link">
+          
+  
+  
+  Next Steps
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Put Agents to Work" class="md-nav__button md-logo" aria-label="Put Agents to Work" data-md-component="logo">
+      
+  <img src="assets/img/logo.png" alt="logo">
+
+    </a>
+    Put Agents to Work
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1">
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Welcome
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Put Agents to Work — Automating Business Process
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="module-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1 — Understand the Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2 — Explore the Reasoning Layer
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="module-2.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2 — Explore the Reasoning Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#step-21-understand-the-analyst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2.1: Understand the Analyst
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2.1: Understand the Analyst">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-explore-the-semantic-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1 Explore the semantic view
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-ask-questions-in-the-playground" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2 Ask questions in the playground
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-22-understand-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2.2: Understand Search
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2.2: Understand Search">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-turn-a-pdf-into-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1 Turn a PDF into text
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-explore-the-search-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2 Explore the search service
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-search-the-documents-in-the-playground" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3 Search the documents in the playground
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-we-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What we built
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="module-3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3 — Build the Credit Analyst Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="module-4.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4 — Explore the Underwriting Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Next Steps
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Next Steps
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="references.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References — Where to Go Next
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-2-explore-the-reasoning-layer"><h1black>Module 2 — </h1black><h1blue>Explore the Reasoning Layer</h1blue></h1>
+<p>Picture a credit risk analyst. They review all the information an applicant submits in the form, what the credit bureau sends about the applicant, and the documents the applicant submits. They analyse every detail to produce a memo of the key information. You then check that memo against policy to make a lending decision. The evidence lives across structured records and unstructured documents, and the reasoning that ties them together is the hard part.</p>
+<p>So an agent needs two capabilities: analytics to answer questions about the numbers, and search to make sense of the documents. Every agent that reasons over complex data rests on those two. In the harness, these two together make up <strong>Retrieve</strong>.</p>
+<p>In Snowflake these two building blocks are <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview">Cortex Search</a> and <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst">Cortex Analyst</a>. Both come as REST APIs, and you can expose either to MCP clients such as Claude or Cursor through a <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp">Snowflake-managed MCP server</a>.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="assets/02-architecture.svg" data-desc-position="bottom"><img alt="The reasoning layer sits between the data and the agents. Cortex Analyst answers analytical questions using a semantic view. Cortex Search searches the document text. Modules 3 and 4 build the agents on top." src="assets/02-architecture.svg"></a></p>
+<p>Both tools are part of Snowflake's governed context layer — a platform for collecting data from any source, enriching it with schemas, descriptions, and semantic views, and activating it through agents, CoCo, and BI tools. The quality of what an agent retrieves directly drives its quality, cost, and latency.</p>
+<p>Setup built both in your account. This module shows you what each one gives an agent and how to check that it works before an agent depends on it. An agent retrieves through these two and nothing else: tables through Cortex Analyst, documents through Cortex Search.</p>
+<h3 id="step-21-understand-the-analyst"><h1sub>Step 2.1: Understand the Analyst</h1sub></h3>
+<p>In Module 1 you asked CoCo how many loan applications were pending. CoCo answered it by mostly guessing what the table and columns meant. While agents can answer questions directly from your data, they struggle to be accurate without further context about the data itself. Our <a href="https://www.snowflake.com/en/blog/enterprise-ai-agents-grounded-context/">experiments</a> show that agents are two to four times more accurate on hard questions when they have access to context and business semantics. Snowflake ships a context layer called <a href="https://www.snowflake.com/en/product/features/horizon-context/">Horizon Context</a> that adds governed meaning to your data.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="assets/horizon-context.png" data-desc-position="bottom"><img alt="Snowflake Horizon Context — Collect, Enrich (Schemas, Lineage, Descriptions, Tags, Popularity, Semantic Views), Activate (CoCo, CoWork, Cortex Agents, BI Tools)" src="assets/horizon-context.png"></a></p>
+<p>A <a href="https://docs.snowflake.com/en/user-guide/views-semantic/overview">semantic view</a> is how you store that meaning in Snowflake. It is a schema-level object where you define business metrics, model business entities, and describe the relationships between them. Because the view adds business meaning to physical data, every agent and application that queries it reads the same definitions, so two agents cannot disagree about what income means.</p>
+<h4 id="211-explore-the-semantic-view">2.1.1 Explore the semantic view</h4>
+<p>The semantic view built for this lab is called <code>APPLICATION_ANALYTICS</code>. Let's look at it.</p>
+<div class="admonition action">
+<p class="admonition-title">Open the semantic view</p>
+<ol>
+<li>In the left navigation, select <strong>AI &amp; ML</strong> » <strong>Analyst</strong>.</li>
+<li>Set the database to <code>LENDING</code> and the schema to <code>LOANS</code> if they are not already set.</li>
+<li>Select <code>APPLICATION_ANALYTICS</code>. This opens it in the <a href="https://docs.snowflake.com/en/user-guide/views-semantic/editor">Semantic View Editor</a>.</li>
+</ol>
+</div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="assets/02-semantic-view.png" data-desc-position="bottom"><img alt="APPLICATION_ANALYTICS open in Cortex Analyst. It has one logical table over APPLICATIONS, with eight dimensions, six facts and seven metrics. Every field carries a description. The Suggestions panel on the right lists improvements Snowflake has found." src="assets/02-semantic-view.png"></a></p>
+<p>The view has one logical table over the <code>APPLICATIONS</code> table. Expand it and you see eight dimensions, six facts and seven metrics. Dimensions are the attributes you group and filter by, such as status and loan purpose. Facts are the row-level numbers, such as credit score and the debt-to-income ratio. Metrics are the aggregations, such as an average credit score or a total approved amount.</p>
+<p>Read the descriptions. Cortex Analyst reads this definition and writes SQL against the underlying tables, so it reasons from those descriptions.</p>
+<p>The <strong>Suggestions</strong> panel on the right lists things Snowflake thinks would make the view better, including verified queries. This view has none yet.</p>
+<h4 id="212-ask-questions-in-the-playground">2.1.2 Ask questions in the playground</h4>
+<p>The Playground lets you ask the semantic view a question in plain language and see what Cortex Analyst does with it.</p>
+<div class="admonition action">
+<p class="admonition-title">Ask Cortex Analyst how many loan applications are pending</p>
+<ol>
+<li>Select the <strong>Playground</strong> tab, at the top of the panel on the right.</li>
+<li>
+<p>Ask:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>How many loan applications are pending a decision?
+</code></pre></div>
+</li>
+</ol>
+</div>
+<p><strong>What to expect.</strong> Six pending loan applications. You also get the SQL that Cortex Analyst wrote.</p>
+<div class="admonition action">
+<p class="admonition-title">Ask Cortex Analyst to compare pending with approved</p>
+<p>In the <strong>Playground</strong> tab (still open from the previous step), ask:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Compare the pending loan applications with the ones already approved.
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Average credit score, income, debt-to-income ratio, and the share who are self-employed.
+</code></pre></div>
+</div>
+<p><strong>What to expect.</strong> It returns the comparison you asked CoCo for in Module 1, this time built from the metrics defined in the view.</p>
+<h3 id="step-22-understand-search"><h1sub>Step 2.2: Understand Search</h1sub></h3>
+<p>The other half of the analyst's job is reading documents. The applicant submits bank statements, tax returns, loan agreements and pay stubs, and the facts that matter live inside those documents. Cortex Search gives you hybrid search over that text.</p>
+<p>Cortex Search runs hybrid search, combining vector and keyword matching, over text in Snowflake. It handles the embedding, the index and the refreshes, so it needs no tuning or maintenance. The same service also powers RAG applications you build on large language models.</p>
+<p>Setup built a search service for this lab, called <code>DOCUMENT_SEARCH</code>. It indexes the documents you looked at in Module 1.</p>
+<p>The documents have to be read, chunked and indexed before anyone asks anything, and re-indexed whenever a document changes. Every question then searches that index.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="assets/02-search-flow.svg" data-desc-position="bottom"><img alt="Ingestion turns the PDFs on a stage into chunks and embeds them into the search index. Querying runs vector search and keyword search over that index, reranks the matches, and returns chunks." src="assets/02-search-flow.svg"></a></p>
+<h4 id="221-turn-a-pdf-into-text">2.2.1 Turn a PDF into text</h4>
+<p>The PDFs on the stage need to be ingested and their text extracted. Snowflake's AI functions make this easy — <code>AI_PARSE_DOCUMENT</code> reads and parses these documents. Setup ran this pipeline for you, but you can try it yourself in the Document Processing Playground.</p>
+<div class="admonition action">
+<p class="admonition-title">Parse a document</p>
+<ol>
+<li>In the left navigation, select <strong>AI &amp; ML</strong> » <strong>AI Studio</strong> » <strong>Document Processing Playground</strong>.</li>
+<li>Select <strong>Add from stage</strong>. Set the database to <code>LENDING</code> and the schema to <code>LOANS</code> if they are not already set, then choose the <code>LAB_FILES</code> stage.</li>
+<li>Pick a bank statement and select <strong>Open playground</strong>. The PDF appears on the right.</li>
+<li>Select the <strong>Text</strong> tab.</li>
+</ol>
+</div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="assets/02-parse-text.png" data-desc-position="bottom"><img alt="The Document Processing Playground. The Text tab shows the bank statement as one run of unformatted text next to the original PDF." src="assets/02-parse-text.png"></a></p>
+<p>The <strong>Text</strong> tab shows the OCR mode output of <code>AI_PARSE_DOCUMENT</code>. OCR mode does not preserve layout, so the amounts arrive without the rows they belong to.</p>
+<div class="admonition action">
+<p class="admonition-title">Switch to Markdown</p>
+<p>Select the <strong>Markdown</strong> tab.</p>
+</div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="assets/02-parse-markdown.png" data-desc-position="bottom"><img alt="The Markdown tab shows the same bank statement with its table rows and columns preserved next to the original PDF." src="assets/02-parse-markdown.png"></a></p>
+<p>The <strong>Markdown</strong> tab shows the LAYOUT mode output, which keeps the tables, so each transaction still sits in a row with its description and its amount. <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/parse-document">AI_PARSE_DOCUMENT</a> has these two modes, and the pipeline for this lab used LAYOUT.</p>
+<p>Then <code>SPLIT_TEXT_RECURSIVE_CHARACTER</code> splits the parsed text into smaller chunks. Each chunk becomes one row in <code>LENDING.LOANS.DOCUMENT_CHUNKS</code>. If you want to see what was indexed, open the <strong>Databases</strong> tab beside your workspace, navigate to <code>LENDING » LOANS » DOCUMENT_CHUNKS</code>, and select <strong>Data Preview</strong>.</p>
+<h4 id="222-explore-the-search-service">2.2.2 Explore the search service</h4>
+<div class="admonition action">
+<p class="admonition-title">Open the search service</p>
+<p>In the left navigation, select <strong>AI &amp; ML</strong> and then <strong>Search</strong>, and select <code>DOCUMENT_SEARCH</code>.</p>
+</div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="assets/02-search-service.png" data-desc-position="bottom"><img alt="The Search Service tab for DOCUMENT_SEARCH. CHUNK_TEXT is the searchable column. APPLICANT_ID and DOC_TYPE are attributes." src="assets/02-search-service.png"></a></p>
+<p>The search service uses the <code>CHUNK_TEXT</code> column to search. <code>APPLICANT_ID</code> and <code>DOC_TYPE</code> are attribute columns, so you can filter a search by applicant or by document type.</p>
+<div class="admonition action">
+<p class="admonition-title">Look at the indexed chunks</p>
+<p>Select the <strong>Data Preview</strong> tab.</p>
+</div>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="assets/02-search-preview.png" data-desc-position="bottom"><img alt="The Data Preview tab showing the indexed chunks, one per row, with the applicant ID, document type and file name." src="assets/02-search-preview.png"></a></p>
+<p>Each row is one chunk. The chunk ID is the file name with the chunk's position appended.</p>
+<h4 id="223-search-the-documents-in-the-playground">2.2.3 Search the documents in the playground</h4>
+<div class="admonition action">
+<p class="admonition-title">Open the search playground</p>
+<ol>
+<li>Select <strong>Playground</strong> in the top right corner.</li>
+<li>Under <strong>Columns</strong> in the Settings panel, add <code>APPLICANT_ID</code>, <code>DOC_TYPE</code> and <code>FILE_NAME</code>, so each result tells you whose document it came from.</li>
+</ol>
+</div>
+<p>You can type a question in plain language or just keywords. Both work.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="assets/02-search-playground.png" data-desc-position="bottom"><img alt="The Cortex Search Playground for DOCUMENT_SEARCH, with a search box and a Settings panel." src="assets/02-search-playground.png"></a></p>
+<div class="admonition action">
+<p class="admonition-title">Ask Cortex Search for a personal guarantee</p>
+<p>In the <strong>Cortex Search Playground</strong> (still open from the previous step), type:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Is any applicant personally liable for a business loan?
+</code></pre></div>
+</div>
+<p><strong>What to expect.</strong> A commercial term note comes back first, followed by other documents from the same applicant.</p>
+<h3 id="what-we-built"><h1sub>What we built</h1sub></h3>
+<p>You have explored the Retrieve part of the harness. Cortex Analyst answers structured questions through the semantic view <code>APPLICATION_ANALYTICS</code>. Cortex Search finds facts in documents through <code>DOCUMENT_SEARCH</code>.</p>
+<p>In Module 3 you build a credit analyst agent. When it calls <code>application_analytics</code>, it goes through Cortex Analyst with the view you just explored. When it calls search, it goes through <code>DOCUMENT_SEARCH</code>. You have seen what both return before the agent depends on them.</p>
+<hr>
+<h3 id="further-reading"><h1sub>Further reading</h1sub></h3>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://docs.snowflake.com/en/user-guide/views-semantic/overview">Overview of semantic views</a></td>
+<td>Define business metrics and dimensions for natural-language queries.</td>
+</tr>
+<tr>
+<td><a href="https://docs.snowflake.com/en/user-guide/views-semantic/best-practices-modeling">Best practices for semantic views</a></td>
+<td>What makes a semantic view accurate and how large it should get.</td>
+</tr>
+<tr>
+<td><a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/overview">Cortex Search</a></td>
+<td>Hybrid search over unstructured text: how indexing and retrieval work.</td>
+</tr>
+<tr>
+<td><a href="https://docs.snowflake.com/en/sql-reference/functions/ai_parse_document">AI_PARSE_DOCUMENT</a></td>
+<td>Turn PDFs and images into structured text at scale.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="module-1.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 1 — Understand the Data">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Module 1 — Understand the Data
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="module-3.html" class="md-footer__link md-footer__link--next" aria-label="Next: Module 3 — Build the Credit Analyst Agent">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Module 3 — Build the Credit Analyst Agent
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["toc.integrate", "content.tabs.link", "content.code.copy", "content.code.annotation", "navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="js/print-site.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
