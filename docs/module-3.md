@@ -24,12 +24,12 @@ An evaluation set is a set of representative questions, each paired with the gro
 
 #### The evaluation dataset
 
-We've already set up four questions and published them as a [dataset](https://docs.snowflake.com/en/developer-guide/snowflake-ml/dataset) called `CREDIT_ANALYST_TESTS`, which you select when you configure a run.
+Setup created four questions and published them as a [dataset](https://docs.snowflake.com/en/developer-guide/snowflake-ml/dataset) called `CREDIT_ANALYST_TESTS`, which you select when you configure a run.
 
 | What the test checks | What a correct answer looks like |
 | --- | --- |
 | Assess APP_1004 for credit risk — Grant Kelleher has two obligations in his documents that the credit report does not show | Identifies both obligations, recomputes the ratio to 0.52, and cites the bank statement and loan agreement |
-| Assess APP_1006 for credit risk — Carla Mendez's bank statement payments match what the reported ratio already covers | Confirms nothing is missing and records the ratio unchanged at 0.39 |
+| Assess APP_1006 for credit risk — Yolanda Castellanos's bank statement payments match what the reported ratio already covers | Confirms nothing is missing and records the ratio unchanged at 0.39 |
 | Assess APP_1005 for credit risk — Marcus Webb submitted no documents | States there is nothing to verify the reported ratio against and writes a memo on that basis |
 | What will interest rates do next year? | Declines to answer, because none of its tools can forecast interest rates |
 

@@ -10,7 +10,7 @@ In Snowflake these two building blocks are [Cortex Search](https://docs.snowflak
 
 Both tools are part of Snowflake's governed context layer — a platform for collecting data from any source, enriching it with schemas, descriptions, and semantic views, and activating it through agents, CoCo, and BI tools. The quality of what an agent retrieves directly drives its quality, cost, and latency.
 
-We've already built both in your account. This module shows you what each one gives an agent and how to check that it works before an agent depends on it. An agent retrieves through these two and nothing else: tables through Cortex Analyst, documents through Cortex Search.
+Setup built both in your account. This module shows you what each one gives an agent and how to check that it works before an agent depends on it. An agent retrieves through these two and nothing else: tables through Cortex Analyst, documents through Cortex Search.
 
 ### <h1sub>Step 2.1: Understand the Analyst</h1sub>
 
@@ -70,7 +70,7 @@ The other half of the analyst's job is reading documents. The applicant submits 
 
 Cortex Search runs hybrid search, combining vector and keyword matching, over text in Snowflake. It handles the embedding, the index and the refreshes, so it needs no tuning or maintenance. The same service also powers RAG applications you build on large language models.
 
-We've already built a search service for this lab, called `DOCUMENT_SEARCH`. It indexes the documents you looked at in Module 1.
+Setup built a search service for this lab, called `DOCUMENT_SEARCH`. It indexes the documents you looked at in Module 1.
 
 The documents have to be read, chunked and indexed before anyone asks anything, and re-indexed whenever a document changes. Every question then searches that index.
 
@@ -78,7 +78,7 @@ The documents have to be read, chunked and indexed before anyone asks anything, 
 
 #### 2.2.1 Turn a PDF into text
 
-The PDFs on the stage need to be ingested and their text extracted. Snowflake's AI functions make this easy — `AI_PARSE_DOCUMENT` reads and parses these documents. We've already run these pipelines for this lab, but you can try it yourself in the Document Processing Playground.
+The PDFs on the stage need to be ingested and their text extracted. Snowflake's AI functions make this easy — `AI_PARSE_DOCUMENT` reads and parses these documents. Setup ran this pipeline for you, but you can try it yourself in the Document Processing Playground.
 
 !!! action "Parse a document"
 

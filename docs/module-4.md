@@ -22,7 +22,7 @@ If a check fails, the file goes to a senior underwriter. Either way the agent re
 
 ### <h1sub>Step 4.1: Explore the underwriting agent</h1sub>
 
-We've already put the agent in your account. Before you ask it anything, read through its tools and instructions so you know what it will do and why.
+Setup created the agent in your account. Before you ask it anything, read through its tools and instructions so you know what it will do and why.
 
 The credit analyst wrote the memo to a table in Module 3. The underwriting agent reads it from there.
 

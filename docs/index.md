@@ -94,7 +94,7 @@ The lab runs in [Snowsight](https://docs.snowflake.com/en/user-guide/ui-snowsigh
 
 Your workspace holds the files for the rest of the lab: **lab.sql** has all the SQL you run, **cortex_project/** holds the agent YAML files, and **utils/** has a reset script and helpful queries. CoCo is the panel on the right.
 
-Throughout the lab you use one warehouse, `LENDING_WH`, and one schema, `LENDING.LOANS`. You stay in the **ACCOUNTADMIN** role your trial signs you in with.
+Throughout the lab you use one warehouse, `LENDING_WH`, and one schema, `LENDING.LOANS`. You stay in the **ACCOUNTADMIN** role your trial signs you in with. That keeps setup short. In production the agents would run under a role that can see only these objects, and that role is what governs what they read and do.
 
 ### <h1sub>Lab Exercise</h1sub>
 
