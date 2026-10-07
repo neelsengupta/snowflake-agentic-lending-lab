@@ -13,7 +13,7 @@ You need a Snowflake trial account. Setup takes about two minutes.
 1. In a SQL file in Snowsight, run:
 
    ```sql
-   CREATE API INTEGRATION LAB_GIT_API
+   CREATE API INTEGRATION IF NOT EXISTS LAB_GIT_API
        API_PROVIDER = git_https_api
        API_ALLOWED_PREFIXES = ('https://github.com/neelsengupta/')
        ENABLED = TRUE;
@@ -25,14 +25,17 @@ You need a Snowflake trial account. Setup takes about two minutes.
 3. In the new workspace, open `setup.sql` and select **Run All**. The last
    result reads `Setup complete`.
 
+To start the lab over from any point, run `setup.sql` again. To put edited
+files back, discard your changes in the workspace's **Changes** tab.
+
 The lab guide walks through each step.
 
 ## What is here
 
 | Path | What it is |
 |---|---|
-| `setup.sql` | Creates everything the lab uses. Run once. |
+| `setup.sql` | Creates everything the lab uses. Run it again to start over. |
 | `lab.sql` | The SQL you run during the modules. |
 | `cortex_project/` | The agent definitions, as YAML. |
-| `utils/` | `reset.sql` to start the lab again, `helpful_queries.sql`, and `teardown.sql` to remove everything. |
+| `utils/` | `helpful_queries.sql`, and `teardown.sql` to remove everything the lab created. |
 | `data/` | The applicant documents and the evaluation settings that setup copies. |

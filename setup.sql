@@ -1,8 +1,11 @@
--- Agentic lending lab: setup for a new Snowflake trial account
+-- Agentic lending lab: setup for a Snowflake trial account
 --
 -- Open this file in the snowflake-agentic-lending-lab workspace you created
--- from the lab's GitHub repository, then choose Run All. It takes a few
--- minutes.
+-- from the lab's GitHub repository, then choose Run All. It takes about a
+-- minute.
+--
+-- Run it again at any point to start the lab over. It rebuilds the LENDING
+-- database from nothing, so everything you made in the lab is removed with it.
 --
 -- Everything runs as ACCOUNTADMIN, the role a trial account signs you in with.
 -- The documents and evaluation settings are copied from your workspace, so the
@@ -10,8 +13,11 @@
 
 USE ROLE ACCOUNTADMIN;
 
-/* Small and quick to suspend so the lab does not eat trial credits. */
-CREATE WAREHOUSE LENDING_WH
+/* Small and quick to suspend so the lab does not eat trial credits.
+
+   IF NOT EXISTS rather than OR REPLACE: when setup is run again, this script
+   is itself running on LENDING_WH, and replacing it would abort the script. */
+CREATE WAREHOUSE IF NOT EXISTS LENDING_WH
     WAREHOUSE_SIZE = 'XSMALL'
     AUTO_SUSPEND = 60
     AUTO_RESUME = TRUE
@@ -22,7 +28,9 @@ USE WAREHOUSE LENDING_WH;
    hosts every model the lab's agents use. */
 ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'ANY_REGION';
 
-CREATE DATABASE LENDING;
+/* OR REPLACE so that running setup again starts the lab over: every table,
+   agent, stream, task and evaluation run inside LENDING goes with it. */
+CREATE OR REPLACE DATABASE LENDING;
 CREATE SCHEMA LENDING.LOANS;
 USE SCHEMA LENDING.LOANS;
 
