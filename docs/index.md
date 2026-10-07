@@ -71,7 +71,7 @@ The lab runs in [Snowsight](https://docs.snowflake.com/en/user-guide/ui-snowsigh
     3. Paste the statement below and select **Run**.
 
     ```sql
-    CREATE API INTEGRATION LAB_GIT_API
+    CREATE API INTEGRATION IF NOT EXISTS LAB_GIT_API
         API_PROVIDER = git_https_api
         API_ALLOWED_PREFIXES = ('https://github.com/neelsengupta/')
         ENABLED = TRUE;
@@ -90,9 +90,13 @@ The lab runs in [Snowsight](https://docs.snowflake.com/en/user-guide/ui-snowsigh
     1. In the new **snowflake-agentic-lending-lab** workspace, open **setup.sql**.
     2. Select **Run All**.
 
-**What to expect.** About a minute later, the last result is a single row ending in `Setup complete`, with 12 documents parsed, 5 applicants with documents, and 3 search results. If it says `Setup incomplete`, a column that is lower than that tells you which part did not finish.
+**What to expect.** About a minute later, the last result is a single row ending in `Setup complete`, with 12 documents parsed, 5 applicants with documents, and 3 search results. If it says `Setup incomplete`, a column that is lower than that tells you which part did not finish. Run **setup.sql** again.
 
-Your workspace holds the files for the rest of the lab: **lab.sql** has all the SQL you run, **cortex_project/** holds the agent YAML files, and **utils/** has a reset script and helpful queries. CoCo is the panel on the right.
+Your workspace holds the files for the rest of the lab: **lab.sql** has all the SQL you run, **cortex_project/** holds the agent YAML files, and **utils/** has helpful queries. CoCo is the panel on the right.
+
+!!! tip "Start over at any point"
+
+    Run **setup.sql** again. It takes about a minute and rebuilds the lab from nothing, removing everything you made in it. To put edited files such as the agent YAML back as they started, open the **Changes** tab at the top of the file list and discard your changes. You never need to repeat Steps 1 and 2.
 
 Throughout the lab you use one warehouse, `LENDING_WH`, and one schema, `LENDING.LOANS`. You stay in the **ACCOUNTADMIN** role your trial signs you in with. That keeps setup short. In production the agents would run under a role that can see only these objects, and that role is what governs what they read and do.
 
