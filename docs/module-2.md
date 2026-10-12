@@ -78,7 +78,7 @@ The documents have to be read, chunked and indexed before anyone asks anything, 
 
 #### 2.2.1 Turn a PDF into text
 
-The PDFs on the stage need to be ingested and their text extracted. Snowflake's AI functions make this easy — `AI_PARSE_DOCUMENT` reads and parses these documents. Setup ran this pipeline for you, but you can try it yourself in the Document Processing Playground.
+The PDFs on the stage need to be ingested and their text extracted. Snowflake's AI functions make this easy — `AI_PARSE_DOCUMENT` reads and parses these documents. We parsed these documents when we built the lab, so setup only had to load the text. Parsing gives the same text every time, but it calls Cortex for each document and can take several minutes. You can try it yourself in the Document Processing Playground.
 
 !!! action "Parse a document"
 
