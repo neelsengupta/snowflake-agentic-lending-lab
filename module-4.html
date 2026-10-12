@@ -1,0 +1,1500 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://neelsengupta.github.io/snowflake-agentic-lending-lab/module-4.html">
+      
+      
+        <link rel="prev" href="module-3.html">
+      
+      
+        <link rel="next" href="references.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Module 4 — Explore the Underwriting Agent - Put Agents to Work</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="css/print-site.css">
+    
+      <link rel="stylesheet" href="css/print-site-material.css">
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-4-explore-the-underwriting-agent" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Put Agents to Work" class="md-header__button md-logo" aria-label="Put Agents to Work" data-md-component="logo">
+      
+  <img src="assets/img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Put Agents to Work
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Module 4 — Explore the Underwriting Agent
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="index.html" class="md-tabs__link">
+          
+  
+  
+  Welcome
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="module-1.html" class="md-tabs__link">
+          
+  
+  
+  Module 1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="module-2.html" class="md-tabs__link">
+          
+  
+  
+  Module 2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="module-3.html" class="md-tabs__link">
+          
+  
+  
+  Module 3
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="module-4.html" class="md-tabs__link">
+          
+  
+  
+  Module 4
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="references.html" class="md-tabs__link">
+          
+  
+  
+  Next Steps
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Put Agents to Work" class="md-nav__button md-logo" aria-label="Put Agents to Work" data-md-component="logo">
+      
+  <img src="assets/img/logo.png" alt="logo">
+
+    </a>
+    Put Agents to Work
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1">
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Welcome
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Put Agents to Work — Automating Business Process
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="module-1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 1 — Understand the Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="module-2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 2 — Explore the Reasoning Layer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="module-3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 3 — Build the Credit Analyst Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Module 4
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4 — Explore the Underwriting Agent
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="module-4.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module 4 — Explore the Underwriting Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#step-41-explore-the-underwriting-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4.1: Explore the underwriting agent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4.1: Explore the underwriting agent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411-open-the-agent-and-read-the-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.1 Open the agent and read the configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412-ask-the-agent-to-give-a-decision-for-grant-kelleher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.2 Ask the agent to give a decision for Grant Kelleher
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413-ask-the-agent-to-give-a-decision-for-diane-whitfield" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.3 Ask the agent to give a decision for Diane Whitfield
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-42-explore-multi-agent-orchestration-with-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4.2: Explore multi-agent orchestration with MCP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4.2: Explore multi-agent orchestration with MCP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-open-the-agent-with-delegation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2.1 Open the agent with delegation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-ask-the-agent-to-give-a-decision-for-diane-whitfield-again" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2.2 Ask the agent to give a decision for Diane Whitfield again
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-automate-the-lending-approval-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional: Automate the lending approval process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional: Automate the lending approval process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#431-create-a-stream-on-the-loan-application-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3.1 Create a stream on the loan application table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#432-create-the-task-that-underwrites-new-loan-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3.2 Create the task that underwrites new loan applications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#433-submit-a-new-loan-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3.3 Submit a new loan application
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-we-built" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What we built
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-production-grade-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building production grade agents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Next Steps
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Next Steps
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="references.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References — Where to Go Next
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-4-explore-the-underwriting-agent"><h1black>Module 4 — </h1black><h1blue>Explore the Underwriting Agent</h1blue></h1>
+<p>In Module 3 we built a credit analyst that reads a loan application and its documents and writes a credit memo. A memo is not a decision. Deciding is the underwriter's job. In this module we explore two pre-built underwriting agents and see how multi-agent orchestration over MCP works in practice.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="assets/04-architecture.svg" data-desc-position="bottom"><img alt="The reasoning layer feeds the agents. Module 4 explores the underwriting agent, which works from the credit memo, applies the lending policy, and writes an approved, declined or escalated decision back to the loan application." src="assets/04-architecture.svg"></a></p>
+<p>The underwriter reads the credit memo, tests it against the policy, and gives a decision. Sometimes the underwriter picks up a loan application nobody has assessed yet. Then the agent asks the credit analyst for a memo first, over a <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp">Snowflake-managed MCP server</a>.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="assets/04-underwriter.svg" data-desc-position="bottom"><img alt="The underwriting agent takes the credit memo and the loan application record. It looks for a memo on the applicant, asks the credit analyst when there is none, tests the credit score and the debt-to-income ratio against policy, then approves within the limit, declines, or escalates, and records the decision on the loan application. Below it sit the two things it calls. The lending policy is the POLICY_CHECK function, run on the ratio the memo established, with three tiers: TIER_1 at a score of 740 or above and a ratio of 0.36 or below, permitting 50 percent of income; TIER_2 at 680 or above and 0.43 or below, permitting 35 percent; and REFERRAL for anything else, permitting 15 percent. The other is the credit analyst agent built in Module 3, reached over a Snowflake-managed MCP server. For APP_1004 the output is a status of DECLINED at tier REFERRAL, a maximum exposure of 24,450 and an approved amount of zero, where the ratio reported at intake would have made the same file TIER_1 and eligible for the full 75,000." src="assets/04-underwriter.svg"></a></p>
+<p>The <code>POLICY_CHECK</code> function turns the credit score and the ratio into a tier, and the tier caps lending at a share of income.</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Requires</th>
+<th>Lending limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TIER_1</code></td>
+<td>a score of 740 or above and a ratio of 0.36 or below</td>
+<td>50% of income</td>
+</tr>
+<tr>
+<td><code>TIER_2</code></td>
+<td>a score of 680 or above and a ratio of 0.43 or below</td>
+<td>35% of income</td>
+</tr>
+<tr>
+<td><code>REFERRAL</code></td>
+<td>anything that meets neither</td>
+<td>15% of income</td>
+</tr>
+</tbody>
+</table>
+<p>Two checks fail a file outright: a score below 620, or a ratio above 0.43. A good score does not rescue a file from a ratio above the maximum.</p>
+<p>If a check fails, the file goes to a senior underwriter. Either way the agent records the outcome with <code>RECORD_DECISION</code>, which runs the policy check itself, so it enforces the cap outside the model. Running the check outside the model is the <strong>Control</strong> part of the harness: the rules are code, and the model cannot go further than they allow.</p>
+<h3 id="step-41-explore-the-underwriting-agent"><h1sub>Step 4.1: Explore the underwriting agent</h1sub></h3>
+<p>Setup created the agent in your account. Before you ask it anything, read through its tools and instructions so you know what it will do and why.</p>
+<p>The credit analyst wrote the memo to a table in Module 3. The underwriting agent reads it from there.</p>
+<div class="admonition warning">
+<p class="admonition-title">Before you start: reset the two applications</p>
+<p>In <strong>lab.sql</strong>, run the <strong>MODULE 4: Before you start</strong> block:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">-- Reset application status</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">APPLICATIONS</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">SET</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'PENDING'</span><span class="p">,</span><span class="w"> </span><span class="n">POLICY_TIER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">APPROVED_AMOUNT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="n">MAX_EXPOSURE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">ESCALATION_QUESTION</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">PROCESSED_AT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NULL</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">APPLICANT_ID</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'APP_1001'</span><span class="p">,</span><span class="w"> </span><span class="s1">'APP_1004'</span><span class="p">);</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">-- Clear Diane Whitfield's memo so the agent must escalate</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">CREDIT_MEMO</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">APPLICANT_ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'APP_1001'</span><span class="p">;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1">-- Set Grant Kelleher's memo to the correct diligence result</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">CALL</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">WRITE_CREDIT_MEMO</span><span class="p">(</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="s1">'APP_1004'</span><span class="p">,</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span><span class="mi">0</span><span class="p">.</span><span class="mi">52</span><span class="p">,</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="s1">'{"guaranteed_commercial_loan_monthly": 3870.00, "cosigned_auto_loan_monthly": 612.00}'</span><span class="p">,</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="s1">'Bank statement shows a commercial loan payment under a personal guarantee and a co-signed auto loan payment, neither on the credit report. Both are personal obligations, so the ratio after diligence is 0.52 against 0.19 reported.'</span><span class="p">,</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">  </span><span class="s1">'doc_APP_1004_bank_statement.pdf,doc_APP_1004_commercial_loan_agreement.pdf,doc_APP_1004_auto_loan_statement.pdf'</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">);</span>
+</code></pre></div>
+<p>If <code>CREDIT_ANALYST_AGENT_IMPROVED</code> is missing, use the stuck section in <strong>Module 3, Step 3.2.1</strong> to rebuild it before continuing.</p>
+</div>
+<h4 id="411-open-the-agent-and-read-the-configuration">4.1.1 Open the agent and read the configuration</h4>
+<div class="admonition action">
+<p class="admonition-title">Open the underwriting agent</p>
+<ol>
+<li>In the left navigation, select <strong>AI &amp; ML</strong> » <strong>Agents</strong> » <code>UNDERWRITING_AGENT</code>.</li>
+<li>Select the <strong>Configuration</strong> tab.</li>
+<li>
+<p>Read through the four tools. Each one maps to a part of the harness.</p>
+</li>
+<li>
+<p><code>get_credit_memo</code> (<strong>Retrieve</strong>): reads the memo the credit analyst wrote. If it returns <code>found = false</code>, diligence has not been done.</p>
+</li>
+<li><code>application_analytics</code> (<strong>Retrieve</strong>): reads the loan application record from the semantic view. This is bureau data, not verified data.</li>
+<li><code>policy_check</code> (<strong>Act</strong>): converts the verified ratio into a tier and a lending cap. The cap is enforced here, outside the model.</li>
+<li><code>record_decision</code> (<strong>Persist</strong>): writes the outcome. It also re-runs the policy check internally, so no approval above the cap can be recorded regardless of what the model decided.</li>
+</ol>
+</div>
+<p>The orchestration instructions tell the agent to escalate if no memo exists. The model does not approve files that have not gone through diligence. The instructions hardcode that <strong>Control</strong> rather than handing it to the model's judgement.</p>
+<h4 id="412-ask-the-agent-to-give-a-decision-for-grant-kelleher">4.1.2 Ask the agent to give a decision for Grant Kelleher</h4>
+<div class="admonition action">
+<p class="admonition-title">Ask the agent to underwrite Grant Kelleher</p>
+<ol>
+<li>In the left navigation, select <strong>AI &amp; ML</strong> » <strong>Agents</strong> » <code>UNDERWRITING_AGENT</code> and select <strong>Preview</strong>.</li>
+<li>Ask this.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Underwrite APP_1004 against our lending policy.
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Record the decision on the loan application.
+</code></pre></div>
+</div>
+<p><strong>What to expect.</strong> It declines. The memo puts Grant Kelleher's ratio well above the maximum policy allows, so he falls to the referral tier and the cap comes out far below the amount he asked for. The rationale names the commercial loan he has guaranteed and the auto loan he co-signed.</p>
+<div class="admonition action">
+<p class="admonition-title">Open the trace</p>
+<p>On the <strong>Preview</strong> tab of <code>UNDERWRITING_AGENT</code>, select <strong>Show Traces</strong> and work through the steps.</p>
+</div>
+<!-- ![The top of the Preview tab, with New thread, Show Traces and Preview in Snowflake CoWork along the right.](assets/04-show-traces.png) -->
+
+<!-- ![The Traces panel. The conversation on the left, Thread details in the middle listing a span for each step with its duration, and the Agent pane on the right showing the request id, status, token counts and input messages.](assets/04-traces-panel.png) -->
+
+<p>Spans are labelled by type, so each tool call reads <code>Custom Tool</code>. Each span shows which tool ran, with its input and output. The trace provides <strong>Observe</strong>: every step is recorded, so you can see not just what the agent decided but how it got there.</p>
+<div class="admonition action">
+<p class="admonition-title">Check the decision on the loan application record</p>
+<p>In <strong>lab.sql</strong>, run the <strong>Step 4.1.2</strong> block:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">APPLICANT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">STATUS</span><span class="p">,</span><span class="w"> </span><span class="n">APPROVED_AMOUNT</span><span class="p">,</span><span class="w"> </span><span class="n">POLICY_TIER</span><span class="p">,</span><span class="w"> </span><span class="n">MAX_EXPOSURE</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">APPLICATIONS</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">APPLICANT_ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'APP_1004'</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p>On the ratio reported at intake this file cleared the top tier and qualified for the full amount.</p>
+<h4 id="413-ask-the-agent-to-give-a-decision-for-diane-whitfield">4.1.3 Ask the agent to give a decision for Diane Whitfield</h4>
+<div class="admonition action">
+<p class="admonition-title">Ask the agent to underwrite Diane Whitfield</p>
+<ol>
+<li>In the left navigation, select <strong>AI &amp; ML</strong> » <strong>Agents</strong> » <code>UNDERWRITING_AGENT</code>.</li>
+<li>Start a <strong>New thread</strong> and ask this.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Underwrite APP_1001 against our lending policy.
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Record the decision on the loan application.
+</code></pre></div>
+</div>
+<p><strong>What to expect.</strong> It escalates, and it writes a question back to the file asking for credit diligence and a verified debt-to-income ratio. Diane Whitfield has no memo, because Module 3 only assessed the applicants in the evaluation set.</p>
+<p>The escalation demonstrates <strong>Control</strong> working as designed: without a verified ratio, the agent stops and writes the question a person has to answer rather than deciding a file it cannot verify.</p>
+<details class="tip">
+<summary>Stuck? Do this instead.</summary>
+<p>If she already has a memo (because the credit analyst was asked about her at some point in Module 3), clear it and ask again. In <strong>lab.sql</strong>, run the <strong>Step 4.1.3</strong> block:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">CREDIT_MEMO</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">APPLICANT_ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'APP_1001'</span><span class="p">;</span>
+</code></pre></div>
+</details>
+<h3 id="step-42-explore-multi-agent-orchestration-with-mcp"><h1sub>Step 4.2: Explore multi-agent orchestration with MCP</h1sub></h3>
+<p>The credit analyst can do the diligence Diane's file needs. A Snowflake-managed MCP server (<code>CREDIT_ANALYST_MCP</code>) wraps <code>CREDIT_ANALYST_AGENT_IMPROVED</code> as a named tool that any MCP client can call (another agent in this account, Claude, or Cursor). <code>UNDERWRITER_WITH_DELEGATION_AGENT</code> is wired to that server. This extends the <strong>Act</strong> part of the harness: the underwriter can now act through the credit analyst, not just through its own tools.</p>
+<h4 id="421-open-the-agent-with-delegation">4.2.1 Open the agent with delegation</h4>
+<div class="admonition action">
+<p class="admonition-title">Open the delegation agent</p>
+<ol>
+<li>In the left navigation, select <strong>AI &amp; ML</strong> » <strong>Agents</strong> » <code>UNDERWRITER_WITH_DELEGATION_AGENT</code>.</li>
+<li>Select <strong>Configuration</strong>, then <strong>MCP</strong>.</li>
+</ol>
+<p>The agent lists <code>CREDIT_ANALYST_MCP</code> as an MCP server. Every other field is identical to <code>UNDERWRITING_AGENT</code>: the same tools, budget, and policy instructions. The only change is the no-memo branch: this version asks the credit analyst to run diligence, then calls <code>get_credit_memo</code> again before deciding.</p>
+</div>
+<h4 id="422-ask-the-agent-to-give-a-decision-for-diane-whitfield-again">4.2.2 Ask the agent to give a decision for Diane Whitfield again</h4>
+<div class="admonition action">
+<p class="admonition-title">Ask the agent the same question again</p>
+<ol>
+<li>In the left navigation, select <strong>AI &amp; ML</strong> » <strong>Agents</strong> » <code>UNDERWRITER_WITH_DELEGATION_AGENT</code> and select <strong>Preview</strong>.</li>
+<li>Start a <strong>New thread</strong>.</li>
+<li>Ask this.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Underwrite APP_1001 against our lending policy.
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Record the decision on the loan application.
+</code></pre></div>
+</div>
+<p><strong>What to expect.</strong> It approves the full amount. The bank statement shows a mortgage, an auto loan and a card, and every one of them is already on the credit report. Nothing was hidden, so the ratio stands where it was reported and policy puts her in the top tier.</p>
+<div class="admonition action">
+<p class="admonition-title">Open the trace and find the MCP call</p>
+<p>On the <strong>Preview</strong> tab of <code>UNDERWRITER_WITH_DELEGATION_AGENT</code>, select <strong>Show Traces</strong> and work through the <code>Custom Tool</code> spans.</p>
+</div>
+<p>The agent finds no memo, calls the credit analyst over MCP, then records the approval. Some steps run in parallel, so your order will differ.</p>
+<p>Snowflake registers the MCP server as a Custom Tool, so the trace shows the credit analyst call exactly the same way it shows any other tool call.</p>
+<div class="admonition action">
+<p class="admonition-title">Check both decisions on the loan application records</p>
+<p>In <strong>lab.sql</strong>, run the <strong>Step 4.2.2</strong> block:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">APPLICANT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">STATUS</span><span class="p">,</span><span class="w"> </span><span class="n">APPROVED_AMOUNT</span><span class="p">,</span><span class="w"> </span><span class="n">POLICY_TIER</span><span class="p">,</span><span class="w"> </span><span class="n">MAX_EXPOSURE</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">APPLICATIONS</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">APPLICANT_ID</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'APP_1001'</span><span class="p">,</span><span class="w"> </span><span class="s1">'APP_1004'</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">APPLICANT_ID</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h3 id="optional-automate-the-lending-approval-process"><h1sub>Optional: Automate the lending approval process</h1sub></h3>
+<p>Both agents are reactive. A human has to ask. In a real business the process should run unattended: a loan application arrives, data gathering finishes, and the assessment starts on its own. You build that in Snowflake with streams and tasks.</p>
+<p>Run all the SQL in this section in <strong>lab.sql</strong> (use the <strong>Optional Step 4.3.x</strong> blocks).</p>
+<h4 id="431-create-a-stream-on-the-loan-application-table">4.3.1 Create a stream on the loan application table</h4>
+<p>A stream records the DML changes you make to a table. This one is append-only, so it only tracks row inserts.</p>
+<div class="admonition action">
+<p class="admonition-title">Create the stream</p>
+<p>In <strong>lab.sql</strong>, run the <strong>Optional Step 4.3.1</strong> block:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">REPLACE</span><span class="w"> </span><span class="n">STREAM</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">NEW_APPLICATIONS</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">APPLICATIONS</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="n">APPEND_ONLY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">TRUE</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h4 id="432-create-the-task-that-underwrites-new-loan-applications">4.3.2 Create the task that underwrites new loan applications</h4>
+<p><code>UNDERWRITE_ARRIVALS</code>, already in your schema, reads the stream and asks the underwriting agent to decide each loan application it finds.</p>
+<p>A triggered task runs whenever the stream changes, so it needs no schedule.</p>
+<div class="admonition action">
+<p class="admonition-title">Create the task and start it</p>
+<p>In <strong>lab.sql</strong>, run the <strong>Optional Step 4.3.2</strong> block:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">REPLACE</span><span class="w"> </span><span class="n">TASK</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">UNDERWRITE_ON_ARRIVAL</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="n">WAREHOUSE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LENDING_WH</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="k">WHEN</span><span class="w"> </span><span class="k">SYSTEM</span><span class="err">$</span><span class="n">STREAM_HAS_DATA</span><span class="p">(</span><span class="s1">'LENDING.LOANS.NEW_APPLICATIONS'</span><span class="p">)</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">AS</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="k">CALL</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">UNDERWRITE_ARRIVALS</span><span class="p">();</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="k">ALTER</span><span class="w"> </span><span class="n">TASK</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">UNDERWRITE_ON_ARRIVAL</span><span class="w"> </span><span class="n">RESUME</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h4 id="433-submit-a-new-loan-application">4.3.3 Submit a new loan application</h4>
+<div class="admonition action">
+<p class="admonition-title">Insert the loan application</p>
+<p>In <strong>lab.sql</strong>, run the <strong>Optional Step 4.3.3 (part 1)</strong> block:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">APPLICATIONS</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">APPLICANT_ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'APP_2001'</span><span class="p">;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">UNDERWRITING_LOG</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">APPLICANT_ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'APP_2001'</span><span class="p">;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">APPLICATIONS</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="p">(</span><span class="n">APPLICANT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">FIRST_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">LAST_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">CREDIT_SCORE</span><span class="p">,</span><span class="w"> </span><span class="n">ANNUAL_INCOME</span><span class="p">,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">     </span><span class="n">DEBT_TO_INCOME_RATIO</span><span class="p">,</span><span class="w"> </span><span class="n">REQUESTED_AMOUNT</span><span class="p">,</span><span class="w"> </span><span class="n">LOAN_PURPOSE</span><span class="p">,</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">     </span><span class="n">EMPLOYMENT_STATUS</span><span class="p">,</span><span class="w"> </span><span class="n">YEARS_EMPLOYED</span><span class="p">,</span><span class="w"> </span><span class="n">APPLICATION_DATE</span><span class="p">,</span><span class="w"> </span><span class="n">STATUS</span><span class="p">)</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="k">VALUES</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="p">(</span><span class="s1">'APP_2001'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Ana'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Ferreira'</span><span class="p">,</span><span class="w"> </span><span class="mi">775</span><span class="p">,</span><span class="w"> </span><span class="mi">135000</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">19</span><span class="p">,</span><span class="w"> </span><span class="mi">40000</span><span class="p">,</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">     </span><span class="s1">'home improvement'</span><span class="p">,</span><span class="w"> </span><span class="s1">'employed'</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="k">CURRENT_DATE</span><span class="p">(),</span><span class="w"> </span><span class="s1">'PENDING'</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="admonition action">
+<p class="admonition-title">Check the loan application until a decision appears</p>
+<p>In <strong>lab.sql</strong>, run the <strong>Optional Step 4.3.3 (part 2)</strong> block. Run it again until <code>DECIDED_AT</code> fills in.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">APPLICANT_ID</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">ARRIVED_AT</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">DECIDED_AT</span><span class="p">,</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">       </span><span class="n">a</span><span class="p">.</span><span class="n">STATUS</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">POLICY_TIER</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">APPROVED_AMOUNT</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">FROM</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">UNDERWRITING_LOG</span><span class="w"> </span><span class="n">l</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">JOIN</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">APPLICATIONS</span><span class="w"> </span><span class="n">a</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">APPLICANT_ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">APPLICANT_ID</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">l</span><span class="p">.</span><span class="n">ARRIVED_AT</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<p><strong>What to expect.</strong> Ana Ferreira is escalated. She submitted no documents, so no credit memo exists and the agent cannot verify her debt-to-income ratio. The agent records a specific question: whether bureau data alone supports a TIER_1 approval, or whether income documents are required first. That is the correct outcome: the agent holds its ground even in automation.</p>
+<p>From now on, the task underwrites every loan application you insert. Suspend it before you leave.</p>
+<div class="admonition action">
+<p class="admonition-title">Suspend the task</p>
+<p>In <strong>lab.sql</strong>, run the <strong>Optional Step 4.3.3 (part 3)</strong> block:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="n">TASK</span><span class="w"> </span><span class="n">LENDING</span><span class="p">.</span><span class="n">LOANS</span><span class="p">.</span><span class="n">UNDERWRITE_ON_ARRIVAL</span><span class="w"> </span><span class="n">SUSPEND</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h3 id="what-we-built"><h1sub>What we built</h1sub></h3>
+<p>In Module 1 a loan application took days to decide. The two agents now do that work. The credit analyst reads the documents and reconciles the debt-to-income ratio. The underwriter tests the memo against the lending policy and records the decision. A file the policy cannot clear goes to a senior underwriter with the question attached.</p>
+<p>You also explored every part of the harness. The semantic view and the orchestration instructions give it context. The budget and escalation on unsettled files control it. It retrieves with Cortex Analyst and Cortex Search, acts through four custom tools and the credit analyst over MCP, and persists the credit memo, the decision on the loan application and the underwriting log.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="assets/04-harness-built.svg" data-desc-position="bottom"><img alt="The completed harness diagram showing all six zones filled with the objects built in Modules 3 and 4. Module 3 items are shown in light blue: APPLICATION_ANALYTICS semantic view and credit analyst instructions in Context; both retrieval tools in Retrieve; write_credit_memo and recompute_dti in Act; evaluation runs in Observe; CREDIT_MEMO table in Persist; and the credit analyst budget in Control. Module 4 items are shown in dark blue: underwriting agent instructions in Context; policy_check, record_decision and credit analyst over MCP in Act; traces in Observe; decision on loan application and UNDERWRITING_LOG in Persist; and escalation on unverifiable file in Control." src="assets/04-harness-built.svg"></a></p>
+<p>The evaluations make it reliable. The traces, the rationale the agent stores with every decision, the policy we enforce outside the model, and the files it escalates make it trustworthy.</p>
+<h3 id="building-production-grade-agents"><h1sub>Building production grade agents</h1sub></h3>
+<p>Six things are worth remembering.</p>
+<ol>
+<li>
+<p><strong>Managed.</strong> <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents">Cortex Agents</a> is a fully managed agentic platform. The agent plans the work, calls its tools and reflects on what comes back, reasoning over structured and unstructured data in one governed workflow.</p>
+</li>
+<li>
+<p><strong>Reusable.</strong> An agent bundles the model, the tools, the orchestration settings and the instructions into a single <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-manage">securable object</a> you can version and update. In Module 3 you built a better credit analyst by writing a new specification with four tools instead of two.</p>
+</li>
+<li>
+<p><strong>Composable.</strong> The credit analyst and the underwriter are separate agents, and the underwriter uses the credit analyst as a tool. An agent can also inherit another agent's tools through <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-toolsets">agent toolsets</a>.</p>
+</li>
+<li>
+<p><strong>Interoperable.</strong> We publish the credit analyst on a <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp">Snowflake-managed MCP server</a>. The underwriting agent uses it directly, and an external client such as Claude or Cursor can also connect to it. An agent can also use tools hosted on a remote MCP server.</p>
+</li>
+<li>
+<p><strong>Observable and measurable.</strong> The baseline credit analyst wrote a memo that read well and was wrong. The <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-monitor">trace</a> showed why and the <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-evaluations">evaluation</a> scored it, and we built the next version on both.</p>
+</li>
+<li>
+<p><strong>Governed.</strong> The lab did not go into this. An agent runs with the privileges of the querying user's default role, and the same model governs what it can read and what it consumes. You can read more in <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-setup">access control and authentication</a> and <a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/governance-and-availability/ai-cost-management-and-governance">AI cost management and governance</a>.</p>
+</li>
+</ol>
+<p>The lab uses <code>claude-sonnet-4-5</code> because both agents reason over multi-step evidence. For simpler tasks you can use a lighter model and cut cost. You can also set the model to <code>"auto"</code> and let Snowflake select a default — useful when you do not want to pin a specific version and manage model upgrades yourself. The evaluation harness you built in Module 3 lets you test either tradeoff: change the model, run the evaluation, compare scores.</p>
+<hr>
+<h3 id="further-reading"><h1sub>Further reading</h1sub></h3>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>What it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-versioning">Cortex Agent versioning</a></td>
+<td>Manage live and committed versions, aliases and CI/CD deployment.</td>
+</tr>
+<tr>
+<td><a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp">Snowflake-managed MCP server</a></td>
+<td>Expose agents and tools over MCP so any client can call them.</td>
+</tr>
+<tr>
+<td><a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-mcp-connectors">MCP Connectors</a></td>
+<td>Connect an agent to external services such as Jira and Salesforce.</td>
+</tr>
+<tr>
+<td><a href="https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-agents-monitor">Monitor Cortex Agent requests</a></td>
+<td>Trace tool calls, token usage and latency across agent runs.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="module-3.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Module 3 — Build the Credit Analyst Agent">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Module 3 — Build the Credit Analyst Agent
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="references.html" class="md-footer__link md-footer__link--next" aria-label="Next: References — Where to Go Next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                References — Where to Go Next
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["toc.integrate", "content.tabs.link", "content.code.copy", "content.code.annotation", "navigation.footer", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="js/print-site.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
