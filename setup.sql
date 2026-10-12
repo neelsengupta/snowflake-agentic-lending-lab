@@ -651,33 +651,34 @@ ALTER STAGE LENDING.LOANS.LAB_FILES REFRESH;
 
 
 ----- Build the reasoning layer -----
-/* Parses the staged documents and indexes them for search. Has to run after the
-   COPY FILES above. Attendees do not build this. */
+/* Loads the parsed documents and indexes them for search. Attendees do not
+   build this. */
 
 /* One row per document.
 
-   LAYOUT mode returns markdown, so the monthly payment in a loan agreement stays
-   in the same table cell as its label.
+   The text was parsed once with AI_PARSE_DOCUMENT in LAYOUT mode when the lab
+   was built, and is shipped in data/document_text/. Parsing on every account
+   would give the same text, but it calls Cortex for each document and can take
+   minutes. Module 2 shows how the parsing works.
 
-   The applicant and document type are not inside the files, so both come from
-   the file name.
+   LAYOUT mode returns markdown, so the monthly payment in a loan agreement
+   stays in the same table cell as its label.
 
    DOC_TYPE keeps the file name's underscores. Module 3 filters on values like
    bank_statement, and a filter that matches nothing returns empty rather than
    erroring. */
 
-INSERT INTO LENDING.LOANS.DOCUMENT_TEXT
-    (FILE_NAME, APPLICANT_ID, DOC_TYPE, DOC_TEXT)
-SELECT f.RELATIVE_PATH,
-       REGEXP_SUBSTR(f.RELATIVE_PATH, 'APP_[0-9]{4}'),
-       REGEXP_SUBSTR(f.RELATIVE_PATH, 'APP_[0-9]{4}_(.+)\\.pdf', 1, 1, 'e', 1),
-       AI_PARSE_DOCUMENT(
-           TO_FILE('@LENDING.LOANS.LAB_FILES',
-                   f.RELATIVE_PATH),
-           {'mode': 'LAYOUT'}
-       ):content::VARCHAR
-FROM DIRECTORY(@LENDING.LOANS.LAB_FILES) f
-WHERE f.RELATIVE_PATH ILIKE '%.pdf';
+CREATE STAGE LENDING.LOANS.PARSED_TEXT
+    COMMENT = 'The applicant documents as parsed text, loaded into DOCUMENT_TEXT';
+
+COPY FILES
+    INTO @LENDING.LOANS.PARSED_TEXT
+    FROM 'snow://workspace/USER$.PUBLIC."snowflake-agentic-lending-lab"/versions/live/data/document_text/';
+
+COPY INTO LENDING.LOANS.DOCUMENT_TEXT (FILE_NAME, APPLICANT_ID, DOC_TYPE, DOC_TEXT)
+FROM (SELECT $1:FILE_NAME, $1:APPLICANT_ID, $1:DOC_TYPE, $1:DOC_TEXT
+        FROM @LENDING.LOANS.PARSED_TEXT)
+FILE_FORMAT = (TYPE = 'JSON');
 
 /* The passages Cortex Search indexes.
 
